@@ -45,12 +45,18 @@
                         </li>
 
                         <li class="nav-item">
-                            <router-link to="/admin/students" class="nav-link" exact>
+                            <router-link to="/admin/employees" class="nav-link" exact>
                                 <i class="nav-icon fa-solid fa-user-tie"></i>
                                 <p>Employee</p>
                             </router-link>
                         </li>
 
+                        <li class="nav-item">
+                            <router-link to="/admin/guests" class="nav-link" exact>
+                                <i class="nav-icon fa-solid fa-user-secret"></i>
+                                <p>Guest</p>
+                            </router-link>
+                        </li>
 
 <!-- 
                         <li class="nav-item">

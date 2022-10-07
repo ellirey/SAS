@@ -34,6 +34,24 @@ const routes = [
                 component : () => import('./components/pages/admin/Student.vue'), 
             },
 
+
+            {
+                path : 'employees',
+                name : 'employees',
+                component : () => import('./components/pages/admin/Employee.vue'), 
+            },
+
+
+            {
+                path : 'guests',
+                name : 'guests',
+                component : () => import('./components/pages/admin/Guest.vue'), 
+            },
+
+
+
+            
+
             // {
             //     path : 'shipments',
             //     name : 'shipments',

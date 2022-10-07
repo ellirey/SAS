@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
 {
@@ -14,7 +16,9 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $employees = Employee::paginate(5);
+
+        return $employees;
     }
 
     /**
@@ -35,7 +39,18 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validateData = $request->validate([
+            'email'                 =>      ['required', 'string', 'email', 'unique:users'],
+            'username'              =>      ['required', 'string' ,'max:255', 'regex:/^[^(\|\]~`!%^&*=};:?><’)]*$/', 'unique:users'],
+            'password'              =>      ['required', 'string', 'min:8', 'confirmed'],
+            'password_confirmation' =>      ['required', 'string', 'min:8', 'same:password'],
+        ]);
+
+
+
+
+        return $request->all();
     }
 
     /**
