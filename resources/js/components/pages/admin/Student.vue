@@ -50,16 +50,16 @@
                                     </thead>
                                     <tbody>
                                         <tr style="text-align: center;" v-for="(student ,index) in students_data.data" :key="index">
-                                            <td>{{ student.school_code }}</td>
-                                            <td>{{ student.fname || upText }} {{ student.mname || upText }}. {{ student.lname || upText }}</td>
-                                            <td>{{ student.division }}</td> 
-                                            <td>{{ student.position }}</td>
+                                            <td>{{ student.school_num }}</td>
+                                            <td>{{ student.fname | upText }} {{ student.mname | upText }}. {{ student.lname | upText }}</td>
+                                            <td>{{ student.course }}</td> 
+                                            <td>{{ student.department }}</td>
 
                                             <td>
                                                 <button type="button" class="btn btn-success" @click="updateEmplopyeeBtn(student)">
                                                     Edit <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-danger" @click="deleteEmplopyeeBtn(student.id)">
+                                                <button type="button" class="btn btn-danger" @click="deleteStudentBtn(student.id)">
                                                     Delete <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             </td>
@@ -89,69 +89,114 @@
 
         <!-- Modal -->
         <!-- create modal -->
-        <b-modal   size="lg" ref="addStudentMdl" hide-footer title="Student adding Form">
+        <b-modal   size="lg" ref="addStudentMdl" hide-footer title="Employee adding Form">
             <div class="d-block">
                 <div class="container-fluid">
                     <form @submit.prevent="addStudent">
                         <div class="form-row">
-                            <!-- <div class="h5 pb-2 mb-2 col-md-12  form-group text-primary border-bottom border-primary">
-                                Employee Personal Information
+
+                            <div class="h5 pb-2 mb-2 col-md-12  form-group text-primary border-bottom border-primary">
+                                Student User Account Information
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1" class="form-label" >Username</label>
+                                <input type="text" class="form-control" placeholder="Enter Username" v-model="student_form.username" :class="errors.username ? 'is-invalid' : ''">
+                                 <div class="invalid-feedback" v-if="errors.username">{{errors.username[0]}}</div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1" class="form-label" >Email</label>
+                                <input type="text" class="form-control" placeholder="Enter Email" v-model="student_form.email" :class="errors.email ? 'is-invalid' : ''">
+                                 <div class="invalid-feedback" v-if="errors.email">{{errors.email[0]}}</div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1" class="form-label" >Password</label>
+                                <input type="password" class="form-control" placeholder="Enter Password" v-model="student_form.password" :class="errors.password ? 'is-invalid' : ''">
+                                 <div class="invalid-feedback" v-if="errors.password">{{errors.password[0]}}</div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1" class="form-label" >Confirmed password</label>
+                                <input type="password" class="form-control" placeholder="Repeat Password" v-model="student_form.password_confirmation" :class="errors.password_confirmation ? 'is-invalid' : ''">
+                                 <div class="invalid-feedback" v-if="errors.password_confirmation">{{errors.password_confirmation[0]}}</div>
+                            </div>
+
+
+
+
+                            <div class="h5 pb-2 mb-2 col-md-12  form-group text-primary border-bottom border-primary">
+                                Student Personal Information
                             </div>
                             <div class="form-group col-md-5">
                                 <label for="exampleInputEmail1" class="form-label" >First name</label>
-                                <input type="text" class="form-control" placeholder="Enter first name" v-model="employee_form.fname">
+                                <input type="text" class="form-control" placeholder="Enter First Name" v-model="student_form.fname" :class="errors.fname ? 'is-invalid' : ''">
+                                 <div class="invalid-feedback" v-if="errors.fname">{{errors.fname[0]}}</div>
+
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="exampleInputPassword1" class="form-label">Middle name</label>
-                                <input type="text" class="form-control"  placeholder="Enter middle name"  v-model="employee_form.mname">
+                                <input type="text" class="form-control"  placeholder="Enter Middle Name"  v-model="student_form.mname" :class="errors.mname ? 'is-invalid' : ''">
+                                 <div class="invalid-feedback" v-if="errors.mname">{{errors.mname[0]}}</div>
+
                             </div>
 
                             <div class="form-group col-md-5">
                                 <label for="exampleInputEmail1" class="form-label" >Last Name</label>
-                                <input type="text" class="form-control" placeholder="enter last name" v-model="employee_form.lname">
+                                <input type="text" class="form-control" placeholder="Enter Last name" v-model="student_form.lname" :class="errors.lname ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" v-if="errors.lname">{{errors.lname[0]}}</div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1" class="form-label" >Birthday</label>
+                                <input type="date" class="form-control"  v-model="student_form.birthday" :class="errors.birthday ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" v-if="errors.birthday">{{errors.birthday[0]}}</div>
                             </div>
 
 
-                            <div class="h5 pb-2 mt-4 mb-2 col-md-12  form-group text-primary border-bottom border-primary">
-                                Office info
+                            <div class="form-group col-md-2">
+                                <label for="exampleInputEmail1" class="form-label" >Age</label>
+                                <input type="text" class="form-control" placeholder="Enter age" v-model="student_form.age" :class="errors.age ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" v-if="errors.age">{{errors.age[0]}}</div>
                             </div>
 
-                            <div class="form-group col-md-12">
-                                <label for="exampleInputEmail1" class="form-label">Employee number</label>
-                                <input type="text" class="form-control" placeholder="Enter employee number" v-model="employee_form.employee_num">
+                            <div class="form-group col-md-4">
+                               <label for="selectpos" class="form-label">Gender</label>
+                                <select class="custom-select" id="selectpos" v-model="student_form.gender" :class="errors.gender ? 'is-invalid' : ''">
+                                    <option value="" disabled>Select gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                                <div class="invalid-feedback" v-if="errors.gender">{{errors.gender[0]}}</div>
+                            </div>
+
+                            
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1" class="form-label">Student number</label>
+                                <input type="text" class="form-control" placeholder="Enter employee number" v-model="student_form.school_num" :class="errors.school_num ? 'is-invalid' : ''"> 
+                                <div class="invalid-feedback" v-if="errors.school_num">{{errors.school_num[0]}}</div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="selectpos" class="form-label">Department</label>
+                                <select class="custom-select" id="selectpos" v-model="student_form.department" :class="errors.department ? 'is-invalid' : ''">
+                                    <option value="" disabled>Select Department</option>
+                                    <option value="TED">TEACHER EDUCATION DEPARTMENT (TED)</option>
+                                    <option value="DIT">DEPARTMENT OF INFORMATION TECHNOLOGY  (DIT)</option>
+                                    <option value="DAS">DEPARTMENT OF ARTS AND SCIENCE (DAS)</option>
+                                    <option value="DOM">DEPARTMENT OF MANAGEMENT(DOM)</option>
+                                </select>
+                                <div class="invalid-feedback" v-if="errors.department">{{errors.department[0]}}</div>
                             </div>
                         
-
-
                           
-                            <div class="form-group col-md-6">
-                                <label for="selectpos" class="form-label">Position</label>
-                                <select class="custom-select" id="selectpos" v-model="employee_form.position" :class="errors.position ? 'is-invalid' : ''">
-                                    <option value="" disabled>Position</option>
-                                    <option value="Project Assistant I">Project Assistant I</option>
-                                    <option value="Science Research Assistant">Science Research Assistant</option>
-                                    <option value="Science Research Specialist">Science Research Specialist</option>
-                                    <option value="Computer Operator I">Computer Operator I</option>
-                                    <option value="Computer Operator II">Computer Operator II</option>
-                                    <option value="Computer Operator III">Computer Operator III</option>
-                                    <option value="Computer Operator IV">Computer Operator IV</option>
-                                </select>
+                            <div class="form-group col-md-12">
+                                <label for="exampleInputEmail1" class="form-label">Course</label>
+                                <input type="text" class="form-control" placeholder="Enter job title" v-model="student_form.course" :class="errors.course ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" v-if="errors.course">{{errors.course[0]}}</div>
                             </div>
-
-
-
-                            <div class="form-group col-md-6">
-                                <label for="selectpos" class="form-label">Position</label>
-                                <select class="custom-select" id="selectpos" v-model="employee_form.division" :class="errors.division ? 'is-invalid' : ''">
-                                    <option value="" disabled>Division</option>
-                                    <option value="HR">HR</option>
-                                    <option value="OD-MISPS">OD-MISPS</option>
-                                    <option value="IRAD">IRAD</option>
-                                    <option value="CRPD">CRPD</option>
-                                </select>
-                            </div> -->
-
-                       
 
                             <button type="submit" class="btn btn-primary col-12">Submit</button>
                     
@@ -166,7 +211,135 @@
 
 
 
+
         <!-- update modal -->
+        <b-modal   size="lg" ref="updateStudentMdl" hide-footer title="Student Update Form">
+            <div class="d-block">
+                <div class="container-fluid">
+                    <form @submit.prevent="updateEmplopyee">
+                        <div class="form-row">
+
+                            <div class="h5 pb-2 mb-2 col-md-12  form-group text-primary border-bottom border-primary">
+                                Student User Account Information
+                            </div>
+
+                            <div v-if="Object.keys(student_update_form).length == 0">
+
+                            </div>
+
+                            <div  class="form-row" v-else >
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputEmail1" class="form-label" >Username</label>
+                                    <input type="text" class="form-control" placeholder="Enter Username" v-model="student_update_form.user.username" :class="errors.username ? 'is-invalid' : ''">
+                                    <div class="invalid-feedback" v-if="errors.username">{{errors.username[0]}}</div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputEmail1" class="form-label" >Email</label>
+                                    <input type="text" class="form-control" placeholder="Enter Email" v-model="student_update_form.user.email" :class="errors.email ? 'is-invalid' : ''">
+                                    <div class="invalid-feedback" v-if="errors.email">{{errors.email[0]}}</div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputEmail1" class="form-label" >New Password</label>
+                                    <input type="password" class="form-control" placeholder="Enter Password" v-model="student_update_form.user.password" :class="errors.password ? 'is-invalid' : ''">
+                                    <div class="invalid-feedback" v-if="errors.password">{{errors.password[0]}}</div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputEmail1" class="form-label" >Confirmed New password</label>
+                                    <input type="password" class="form-control" placeholder="Repeat Password" v-model="student_update_form.user.password_confirmation" :class="errors.password_confirmation ? 'is-invalid' : ''">
+                                    <div class="invalid-feedback" v-if="errors.password_confirmation">{{errors.password_confirmation[0]}}</div>
+                                </div>
+
+                            </div>
+
+                      
+
+
+
+
+                            <div class="h5 pb-2 mb-2 col-md-12  form-group text-primary border-bottom border-primary">
+                                Student Personal Information
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label for="exampleInputEmail1" class="form-label" >First name</label>
+                                <input type="text" class="form-control" placeholder="Enter First Name" v-model="student_update_form.fname" :class="errors.fname ? 'is-invalid' : ''">
+                                 <div class="invalid-feedback" v-if="errors.fname">{{errors.fname[0]}}</div>
+
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="exampleInputPassword1" class="form-label">Middle name</label>
+                                <input type="text" class="form-control"  placeholder="Enter Middle Name"  v-model="student_update_form.mname" :class="errors.mname ? 'is-invalid' : ''">
+                                 <div class="invalid-feedback" v-if="errors.mname">{{errors.mname[0]}}</div>
+
+                            </div>
+
+                            <div class="form-group col-md-5">
+                                <label for="exampleInputEmail1" class="form-label" >Last Name</label>
+                                <input type="text" class="form-control" placeholder="Enter Last name" v-model="student_update_form.lname" :class="errors.lname ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" v-if="errors.lname">{{errors.lname[0]}}</div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1" class="form-label" >Birthday</label>
+                                <input type="date" class="form-control"  v-model="student_update_form.birthday" :class="errors.birthday ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" v-if="errors.birthday">{{errors.birthday[0]}}</div>
+                            </div>
+
+
+                            <div class="form-group col-md-2">
+                                <label for="exampleInputEmail1" class="form-label" >Age</label>
+                                <input type="text" class="form-control" placeholder="Enter age" v-model="student_update_form.age" :class="errors.age ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" v-if="errors.age">{{errors.age[0]}}</div>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                               <label for="selectpos" class="form-label">Gender</label>
+                                <select class="custom-select" id="selectpos" v-model="student_update_form.gender" :class="errors.gender ? 'is-invalid' : ''">
+                                    <option value="" disabled>Select gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                                <div class="invalid-feedback" v-if="errors.gender">{{errors.gender[0]}}</div>
+                            </div>
+
+                            
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1" class="form-label">Student number</label>
+                                <input type="text" class="form-control" placeholder="Enter employee number" v-model="student_update_form.school_num" :class="errors.school_num ? 'is-invalid' : ''"> 
+                                <div class="invalid-feedback" v-if="errors.school_num">{{errors.school_num[0]}}</div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="selectpos" class="form-label">Department</label>
+                                <select class="custom-select" id="selectpos" v-model="student_update_form.department" :class="errors.department ? 'is-invalid' : ''">
+                                    <option value="" disabled>Select Department</option>
+                                    <option value="TED">TEACHER EDUCATION DEPARTMENT (TED)</option>
+                                    <option value="DIT">DEPARTMENT OF INFORMATION TECHNOLOGY  (DIT)</option>
+                                    <option value="DAS">DEPARTMENT OF ARTS AND SCIENCE (DAS)</option>
+                                    <option value="DOM">DEPARTMENT OF MANAGEMENT(DOM)</option>
+                                </select>
+                                <div class="invalid-feedback" v-if="errors.department">{{errors.department[0]}}</div>
+                            </div>
+                        
+                          
+                            <div class="form-group col-md-12">
+                                <label for="exampleInputEmail1" class="form-label">Course</label>
+                                <input type="text" class="form-control" placeholder="Enter job title" v-model="student_update_form.course" :class="errors.course ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" v-if="errors.course">{{errors.course[0]}}</div>
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary col-12">Submit</button>
+                    
+                        </div> 
+                            
+                    </form>
+                </div>
+            </div>
+        </b-modal>
        
 
         
@@ -175,7 +348,7 @@
 
 
 <script>
-// import * as employeeService from '../../../services/employees_service';
+import * as studentService from '../../../services/student_service';
 
 export default {
     data() {
@@ -183,13 +356,18 @@ export default {
             search: '',
             errors: '',
             student_form: {
-                school_code: '',
+                username: '',
+                email: '',
+                password: '',
+                password_confirmation : '',
+
+                school_num: '',
                 fname : '',
                 mname : '',
                 lname : '',
                 gender : '',
                 age : '',
-                birthdaty : '',
+                birthday : '',
                 course : '',
                 department : '',
             },
@@ -206,137 +384,189 @@ export default {
             this.$refs.addStudentMdl.show()
         },
 
-        // loadEmployees:async function(){
-        //     try {
-        //         this.$Progress.start()
-        //         const response = await employeeService.get_all_employees()
-        //         this.employees_data = response.data
-
-        //     } catch (e) {
-
-        //     }
-        //     this.$Progress.finish()
-        // },
-
-        // loadPage: async function(page = 1){
-        //     this.$Progress.start();
-        //     let searchQuery = this.search;
-        //     let searchPage = 0;
-
-        //     if (searchQuery == "") {
-        //         try {
-        //             const response = await employeeService.employee_page(page)
-        //             this.employees_data = response.data;
-        //             this.$Progress.finish(); 
-        //         } catch (e) {
-        //             this.$Progress.fail();
-        //         }
-        //         this.$Progress.finish();
-        //     } else {
-        //         try {
-        //             // const response = await praiseService.praise_search_page(page, searchQuery)
-        //             // this.praise_datas = response.data
-        //         } catch (e){
-        //             this.$Progress.fail();  
-        //         }
-        //         this.$Progress.finish();
-        //     }
-        // },
-
-
-        addStudent: async function(){
-            try { 
-        //         this.$Progress.start()
-        //         let formData = new FormData();
-        //         formData.append("fname", this.employee_form.fname);
-        //         formData.append("mname", this.employee_form.mname);
-        //         formData.append("lname", this.employee_form.lname);
-        //         formData.append("employee_num", this.employee_form.employee_num);
-        //         formData.append("position", this.employee_form.position);
-        //         formData.append("division", this.employee_form.division);
-
-        //         const response = await employeeService.create_employee(formData);      
-        //         this.loadEmployees();
-        //         this.$refs.addEmployeeMdl.hide();
-        //         Toast.fire({
-        //             icon: "success",
-        //             title: "Successfully added!"
-                // });
-            } catch(e) {
+        loadStudents:async function(){
+            try {
+                this.$Progress.start()
+                const response = await studentService.get_all_students()
+                this.students_data = response.data
+            } catch (e) {
 
             }
             this.$Progress.finish()
         },
 
+        loadPage: async function(page = 1){
+            this.$Progress.start();
+            let searchQuery = this.search;
+            let searchPage = 0;
 
-        // updateEmplopyeeBtn(data){
-        //     this.employee_update_form = {...data}
-        //     this.$refs.updateEmployeeMdl.show();
-        // },
-
-        // updateEmplopyee: async function(){
-        //     try{
-        //         this.$Progress.start()
-        //         let formData = new FormData();
-        //         formData.append("fname", this.employee_update_form.fname);
-        //         formData.append("mname", this.employee_update_form.mname);
-        //         formData.append("lname", this.employee_update_form.lname);
-        //         formData.append("employee_num", this.employee_update_form.employee_num);
-        //         formData.append("position", this.employee_update_form.position);
-        //         formData.append("division", this.employee_update_form.division);
-        //         formData.append("_method", "put");
-
-        //         const response = await employeeService.update_employee(this.employee_update_form.id, formData);      
-        //         this.loadEmployees();
-        //         this.$refs.updateEmployeeMdl.hide();
-
-        //         Toast.fire({
-        //             icon: "success",
-        //             title: "Updated successfully!"
-        //         });
+            if (searchQuery == "") {
+                try {
+                    const response = await studentService.student_page(page)
+                    this.students_data = response.data;
+                    this.$Progress.finish(); 
+                } catch (e) {
+                    this.$Progress.fail();
+                }
+                this.$Progress.finish();
+            } else {
+                try {
+                    // const response = await praiseService.praise_search_page(page, searchQuery)
+                    // this.praise_datas = response.data
+                } catch (e){
+                    this.$Progress.fail();  
+                }
+                this.$Progress.finish();
+            }
+        },
 
 
-        //     } catch(e) {
+        addStudent: async function(){
+            try { 
+                var current_page = this.students_data.current_page;
 
-        //     }
-        //     this.$Progress.finish()
+                this.$Progress.start()
+                let formData = new FormData();
+                formData.append("username", this.student_form.username);
+                formData.append("email", this.student_form.email);
+                formData.append("password", this.student_form.password);
+                formData.append("password_confirmation", this.student_form.password_confirmation);
 
-        // },
+                formData.append("school_num", this.student_form.school_num);
+                formData.append("fname", this.student_form.fname);
+                formData.append("mname", this.student_form.mname);
+                formData.append("lname", this.student_form.lname);
+                formData.append("gender", this.student_form.gender);
+                formData.append("age", this.student_form.age);
+                formData.append("birthday", this.student_form.birthday);
+                formData.append("course", this.student_form.course);
+                formData.append("department", this.student_form.department);
+
+                const response = await studentService.create_student(formData);   
+
+                this.loadPage(current_page);        
+                this.$refs.addStudentMdl.hide();
+                Toast.fire({
+                    icon: "success",
+                    title: "Successfully added!"
+                });
+           } catch(e) {
+                switch(e.response.status){
+                    case 422:
+                        this.errors = e.response.data.errors;
+                        Toast.fire({
+                            icon: "error",
+                            title: "Please check your Input form"
+                        });
+                    break;
+                    default: 
+                        Toast.fire({
+                            icon: "error",
+                            title: "Server error, Please try again!"
+                        });
+                    break;
+                }
+                this.$Progress.fail();  
+            }
+            this.$Progress.finish()
+        },
+
+
+        updateEmplopyeeBtn(data){
+            this.student_update_form = {...data}
+            this.$refs.updateStudentMdl.show();
+        },
+
+        updateEmplopyee: async function(){
+            try {
+                var current_page = this.students_data.current_page;
+
+                this.$Progress.start()
+                let formData = new FormData();
+                formData.append("user_id", this.student_update_form.user.id);
+                formData.append("username", this.student_update_form.user.username);
+                formData.append("email", this.student_update_form.user.email);
+                formData.append("password", this.student_update_form.user.password);
+                formData.append("password_confirmation", this.student_update_form.user.password_confirmation);
+
+                formData.append("school_num", this.student_update_form.school_num);
+                formData.append("fname", this.student_update_form.fname);
+                formData.append("mname", this.student_update_form.mname);
+                formData.append("lname", this.student_update_form.lname);
+                formData.append("gender", this.student_update_form.gender);
+                formData.append("age", this.student_update_form.age);
+                formData.append("birthday", this.student_update_form.birthday);
+                formData.append("course", this.student_update_form.course);
+                formData.append("department", this.student_update_form.department);
+                formData.append("_method", "put");
+
+                const response = await studentService.update_student(this.student_update_form.id, formData);      
+                this.loadPage(current_page);        
+
+                this.$refs.updateStudentMdl.hide();
+                Toast.fire({
+                    icon: "success",
+                    title: "Updated successfully!"
+                });
+
+            } catch(e) {
+                switch(e.response.status){
+                    case 422:
+                        this.errors = e.response.data.errors;
+                        Toast.fire({
+                            icon: "error",
+                            title: "Please check your Input form"
+                        });
+                    break;
+                    default: 
+                        Toast.fire({
+                            icon: "error",
+                            title: "Server error, Please try again!"
+                        });
+                    break;
+                }
+                this.$Progress.fail();  
+            }
+            this.$Progress.finish();
+
+        },
 
 
 
-        // deleteEmplopyeeBtn: async function(id){
-        //     try {
-        //         await Swal.fire({
-        //         title: 'Are you sure?',
-        //         text: "You won't be able to revert this!",
-        //         icon: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonColor: '#3085d6',
-        //         cancelButtonColor: '#d33',
-        //         confirmButtonText: 'Yes, delete it!'
-        //         }).then((result) => {
-        //             if (result.isConfirmed) {
-        //                 this.$Progress.start();
-        //                 employeeService.delete_employee(id)
-        //                 Toast.fire({
-        //                     icon: "success",
-        //                     title: "employee successfully Deleted"
-        //                 });
-        //                 this.loadEmployees();
-        //             } else {
-        //                 Toast.fire({
-        //                     icon: "warning",
-        //                     title: "Delete Canceled"
-        //                 });
-        //             }
-        //         })
+        deleteStudentBtn: async function(id){
+            try {
+                var current_page = this.students_data.current_page;
+
+                await Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.$Progress.start();
+                        studentService.delete_student(id)
+                        Toast.fire({
+                            icon: "success",
+                            title: "Student successfully Deleted"
+                        });
+                        this.loadPage(current_page);        
+                    } else {
+                        Toast.fire({
+                            icon: "warning",
+                            title: "Delete Canceled"
+                        });
+                    }
+                })
 
                 
-        //     } catch(e) {
-        //         this.$Progress.finish();
-        //     }
-        // },
+            } catch(e) {
+                this.$Progress.finish();
+            }
+        },
 
 
 
@@ -345,7 +575,7 @@ export default {
     },
 
     mounted(){
-        this.loadEmployees()
+        this.loadStudents()
     }
 }
 </script>
