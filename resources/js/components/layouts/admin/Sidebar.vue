@@ -25,7 +25,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
 
-           
+                        <li class="nav-header">Administrator</li>
                         
                         <li class="nav-item">
                             <router-link to="/admin" class="nav-link dashboard-nav" exact>
@@ -33,10 +33,7 @@
                                 <p>Dashboard</p>
                             </router-link>
                         </li>
-<div>
-    
-</div>
-
+           
                         <li class="nav-item">
                             <router-link to="/admin/students" class="nav-link" exact>
                                 <i class="nav-icon fa-solid fa-user-graduate"></i>
