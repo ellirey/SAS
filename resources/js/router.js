@@ -65,7 +65,19 @@ const routes = [
             // },
     
         ],
+    },
+
+    
+    {
+        path : '/login',
+        name : 'login',
+        component : () => import('./components/pages/landing/Login.vue'),
     }
+
+    
+    
+
+
 ]
 
 const router = new Router({

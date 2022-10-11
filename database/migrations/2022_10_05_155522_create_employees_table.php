@@ -25,7 +25,7 @@ class CreateEmployeesTable extends Migration
             $table->string('gender')->length(6);
             $table->date('birthday');
             $table->integer('age')->length(2);
-            $table->year('year_started');
+            $table->year('year_started')->nullable();
             $table->string('department')->length(100);
             $table->string('title')->length(100);
 
