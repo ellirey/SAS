@@ -21,20 +21,20 @@ export function login(user){
 
 function setToken(user){
     const token = jwt.sign({ user:user }, 'tcubusssatationasd;askjdlk;ajsd;ljas')
-    localStorage.setItem('laravel-vue-spa-token', token);
+    localStorage.setItem('csvu-token', token);
     store.dispatch('authenticate', user.user);
 }
 
 
 export function isLoggedIn(){
-    const token = localStorage.getItem('laravel-vue-spa-token');
+    const token = localStorage.getItem('csvu-token');
     const tokenData = jwt.decode(token);
     return token != null;
 }
 
 
 export function getUserRole() {
-    const token = localStorage.getItem('laravel-vue-spa-token');
+    const token = localStorage.getItem('csvu-token');
     if (!token) {
         return null;
     }
@@ -46,7 +46,7 @@ export function getUserRole() {
 
 
 export function getAccessToken(){
-    const token = localStorage.getItem('laravel-vue-spa-token');
+    const token = localStorage.getItem('csvu-token');
     if(!token){
         return null;
     }
@@ -57,7 +57,7 @@ export function getAccessToken(){
 
 export function checkerLogout(){
     http().get('/auth/logout');
-    localStorage.removeItem('laravel-vue-spa-token');
+    localStorage.removeItem('csvu-token');
 }
 
 

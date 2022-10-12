@@ -29,8 +29,38 @@ class AuthController extends Controller
         }
 
         $user = $request->user();
+
+        if($user->role == "admin"){
+            $tokenPermission = $user->createToken('Personal Access Token', ['admin']);
+        } elseif($user->role == "employee") {    
+            $tokenPermission = $user->createToken('Personal Access Token', ['employee']);
+        } elseif($user->role == "guest") {    
+            $tokenPermission = $user->createToken('Personal Access Token', ['guest']);
+        }else{
+            $tokenPermission = $user->createToken('Personal Access Token', ['student']);
+        }
+
+        $token = $tokenPermission->token;
+
+        if($request->remember_me) {
+            $token->expires_at = Carbon::now()->addWeeks(1);
+        }
         
-        return $user;
+        if($token->save()){
+            return response()->json([
+                'user' => $user,
+                'access_token' => $tokenPermission->accessToken,
+                'token_type' => 'Bearer',
+                'token_scope' => $tokenPermission->token->scopes[0],
+                'expires_at' => Carbon::parse($tokenPermission->token->expires_at)->toDateTimeString(),
+                'status_code' => 200
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Some error occurred, Please try again!',
+                'status_code' => 500
+            ], 500);
+        }
     }
 
 }

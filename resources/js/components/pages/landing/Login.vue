@@ -1,7 +1,8 @@
 <template>
 
-    <div class="row no-gutter login-content">
-        <div class="col-md-9 d-none d-md-flex bg-image">
+<div class="container-fluid  ">
+        <div class="row no-gutter login-content">
+        <div class="col-md-9 d-none d-md-flex bg-image" >
             <div>
                 <h3 class="text-center image-text-banner">
                 <span>
@@ -13,7 +14,7 @@
 
       
 
-        <div class="col-md-3 login-pannel" style="background-color:#EEEDED;">
+        <div class="col-md-3 login-pannel" style="background-color:#EEEDED; ">
             <div class=" d-flex align-items-center py-5">
                 
                 <!-- Demo content-->
@@ -31,7 +32,7 @@
                             </div>
                             
                             <br>
-                            <h5 class="display-4 text-center ">
+                            <h5 class="display-4 text-center text-banner">
                             Login
                             </h5>
 
@@ -63,6 +64,8 @@
 
 
     </div>
+</div>
+    
  <!-- The content half -->
          
 
@@ -91,21 +94,27 @@ export default {
          login: async function(){
             try { 
                 const response = await authServices.login(this.user);
-                console.log(response);
-                // if(response.token_scope == 'admin' || response.token_scope == 'employeer'){ 
-                //     Toast.fire({
-                //         icon: 'success',
-                //         title: "Successfully Login"
-                //     }); 
-                //     this.$router.push('/admin');
-                // } else {
+                console.log(response.token_scope);
+                if(response.token_scope == 'admin' || response.token_scope == 'employee'){ 
+
+                    console.log('admin');
+                    Toast.fire({
+                        icon: 'success',
+                        title: "Successfully Login"
+                    }); 
+                    this.$router.push('/admin');
+                } else {
                 //     Toast.fire({
                 //         icon: 'success',
                 //         title: "Successfully Login"
                 //     });
                 //     // alert(response.token_scope)
                 //     this.$router.push('/');
-                // }
+                    console.log('user');
+
+
+                }
+
 
             } catch(e) {
                 switch(e.response.status){
@@ -141,7 +150,6 @@ export default {
 * ==========================================
 *
 */
-@import url('https://fonts.googleapis.com/css?family=Red+Hat+Display:900&display=swap');
 
 .bg-image {
   background-image: url('https://cvsu.edu.ph/wp-content/uploads/2018/01/AerialView.jpg');
@@ -164,7 +172,11 @@ export default {
   transform: translate(-50%, -50%);
 }
 
-h3{
+.text-banner{
+    font-family: "Red Hat Display", Times, serif;
+}
+
+.image-text-banner{
   display: table;
   margin-right: auto;
   margin-left: auto;
