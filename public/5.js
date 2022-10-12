@@ -41,7 +41,9 @@ var staticRenderFns = [function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("div", {
+  return _c("div", {
+    staticClass: "content-wrapper"
+  }, [_c("div", {
     staticClass: "content-header"
   }, [_c("div", {
     staticClass: "container-fluid"

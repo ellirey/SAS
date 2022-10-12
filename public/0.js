@@ -50,9 +50,23 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "wrapper"
-  }, [_c("Navbar"), _vm._v(" "), _c("Sidebar"), _vm._v(" "), _c("div", {
-    staticClass: "content-wrapper"
-  }, [_c("router-view")], 1), _vm._v(" "), _c("Footer")], 1);
+  }, [_c("Navbar"), _vm._v(" "), _c("Sidebar"), _vm._v(" "), _c("router-view", {
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(_ref) {
+        var Component = _ref.Component;
+        return [_c("transition", {
+          attrs: {
+            "enter-active-class": "animate__animated animate__fadeInLeft",
+            "leave-active-class": "animate__animated animate__fadeOutLeft",
+            mode: "out-in"
+          }
+        }, [_c(Component, {
+          tag: "component"
+        })], 1)];
+      }
+    }])
+  }), _vm._v(" "), _c("Footer")], 1);
 };
 
 var staticRenderFns = [];
@@ -73,7 +87,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\r\n/* .bg-gradient-primary {\r\n    background: #102156 !important;\r\n} */\r\n\r\n", ""]);
+exports.push([module.i, "\n.fade-enter-active,\n.fade-leave-active {\n  transition: opacity 0.5s ease;\n}\n.fade-enter-from,\n.fade-leave-to {\n  opacity: 0;\n}\n\n", ""]);
 
 // exports
 

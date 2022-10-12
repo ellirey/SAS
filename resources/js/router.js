@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-
+import * as auth from './services/auth_service';
 Vue.use(Router);
 
 const routes = [ 
@@ -65,6 +65,19 @@ const routes = [
             // },
     
         ],
+        beforeEnter(to, from, next){
+            if(!auth.isLoggedIn()){
+                next('login');
+            } else {
+                if(auth.getUserRole() == 'admin'){
+                    next();
+                } else if(auth.getUserRole() == 'employee'){
+                    next();
+                } else {
+                    next('/')
+                }
+            }
+        }
     },
 
     

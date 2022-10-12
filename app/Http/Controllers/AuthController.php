@@ -63,4 +63,25 @@ class AuthController extends Controller
         }
     }
 
+    public function userProfile(Request $request){
+        if($request->user()) {
+            return response()->json($request->user(), 200);
+        }
+
+        return response()->json(
+            [
+                'message' => 'Not loggedin!',
+                'status_code' => 500
+            ], 500 
+        );
+    }
+
+    public function logout(Request $request){
+        $request->user()->token()->revoke();
+        return response()->json([
+            'message' => 'Logout successfully!',
+            'status_code' => 200
+        ], 200);
+    }
+
 }

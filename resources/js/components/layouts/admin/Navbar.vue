@@ -19,7 +19,7 @@
       <!-- Navbar Search -->
      
       <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
+        <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button" v-on:click="logout">
           <i class="fa-solid fa-power-off" style="color:#ffffff;"></i>
         </a>
       </li>
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import * as authService from '../../../services/auth_service';
 export default {
     data() {
         return { 
@@ -37,5 +38,19 @@ export default {
         }
         
     },
+    methods:{
+      logout: async function(){
+        try {
+          authService.checkerLogout();
+            Toast.fire({
+              icon: "success",
+              title: "Successfully Logout"
+            });
+          this.$router.push('/login');
+        } catch(e) {
+
+        }
+      }
+    }
 }
 </script>
