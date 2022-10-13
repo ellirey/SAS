@@ -29,3 +29,6 @@ Route::resource('employee', 'EmployeeController');
 Route::resource('student', 'StudentController');
 Route::resource('guest', 'GuestController');
 
+Route::resource('schedule', 'ScheduleController');
+
+Route::get('/get-all-days', 'DayController@getAllDays');

@@ -13,6 +13,13 @@ const routes = [
                 name : 'about',
                 component : () => import('./components/pages/landing/Dashboard.vue'), 
             }, 
+
+            {
+                path : 'schedule',
+                name : 'schedule',
+                component : () => import('./components/pages/landing/Schedule.vue'), 
+            }, 
+
         ],
     },
 

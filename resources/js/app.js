@@ -48,6 +48,10 @@ Vue.filter('upText', function(text){
 });
 
 
+import datePicker from 'vue-bootstrap-datetimepicker';
+import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
+
+Vue.use(datePicker)
 
 new Vue({
     el: '#app',

@@ -64,8 +64,20 @@ class AuthController extends Controller
     }
 
     public function userProfile(Request $request){
-        if($request->user()) {
-            return response()->json($request->user(), 200);
+        $user_id = $request->user()->id;
+        $user_data = User::where('id', $user_id)->first();
+
+        
+        if($user_data->role == "admin" || $user_data->role == "employee") {
+            $user = User::with('employees')->first();
+        } else if($user_data->role == "student"){
+            $user = User::with('students')->first();
+        } else {
+            $user = User::with('guest')->first();
+        }
+
+        if($user) {
+            return response()->json($user, 200);
         }
 
         return response()->json(

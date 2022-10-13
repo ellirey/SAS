@@ -25,4 +25,9 @@ class Employee extends Model
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
 
+
+    public function schedules(){
+        return $this->hasMany('App\Schedule', 'employee_id', 'id');
+    }
+
 }
