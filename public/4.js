@@ -1,15 +1,15 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[4],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/admin/Student.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/admin/Student.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/admin/Employee.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/admin/Employee.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _services_student_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../services/student_service */ "./resources/js/services/student_service.js");
+/* harmony import */ var _services_employee_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../services/employee_service */ "./resources/js/services/employee_service.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -30,7 +30,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       search: '',
       errors: '',
-      student_form: {
+      employee_form: {
         username: '',
         email: '',
         password: '',
@@ -42,21 +42,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         gender: '',
         age: '',
         birthday: '',
-        course: '',
+        title: '',
         department: ''
       },
-      student_update_form: {},
-      students_data: {},
+      employee_update_form: {},
+      employees_data: {},
       page: 1,
       nextPage: 0
     };
   },
   methods: {
-    showMdlAddStudent: function showMdlAddStudent() {
-      this.$refs.addStudentMdl.show();
+    showMdlAddEmployeeBtn: function showMdlAddEmployeeBtn() {
+      this.$refs.addEmployeeMdl.show();
     },
-    loadStudents: function () {
-      var _loadStudents = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    loadEmployees: function () {
+      var _loadEmployees = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var response;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
@@ -65,11 +65,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.prev = 0;
                 this.$Progress.start();
                 _context.next = 4;
-                return _services_student_service__WEBPACK_IMPORTED_MODULE_0__["get_all_students"]();
+                return _services_employee_service__WEBPACK_IMPORTED_MODULE_0__["get_all_employees"]();
 
               case 4:
                 response = _context.sent;
-                this.students_data = response.data;
+                this.employees_data = response.data;
                 _context.next = 10;
                 break;
 
@@ -88,11 +88,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, this, [[0, 8]]);
       }));
 
-      function loadStudents() {
-        return _loadStudents.apply(this, arguments);
+      function loadEmployees() {
+        return _loadEmployees.apply(this, arguments);
       }
 
-      return loadStudents;
+      return loadEmployees;
     }(),
     loadPage: function () {
       var _loadPage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
@@ -117,11 +117,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _context2.prev = 5;
                 _context2.next = 8;
-                return _services_student_service__WEBPACK_IMPORTED_MODULE_0__["student_page"](page);
+                return _services_employee_service__WEBPACK_IMPORTED_MODULE_0__["employee_page"](page);
 
               case 8:
                 response = _context2.sent;
-                this.students_data = response.data;
+                this.employees_data = response.data;
                 this.$Progress.finish();
                 _context2.next = 16;
                 break;
@@ -159,123 +159,122 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return loadPage;
     }(),
-    addStudent: function () {
-      var _addStudent = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var current_page, formData, response;
+    addEmployee: function () {
+      var _addEmployee = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var formData, response;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.prev = 0;
-                current_page = this.students_data.current_page;
                 this.$Progress.start();
                 formData = new FormData();
-                formData.append("username", this.student_form.username);
-                formData.append("email", this.student_form.email);
-                formData.append("password", this.student_form.password);
-                formData.append("password_confirmation", this.student_form.password_confirmation);
-                formData.append("school_num", this.student_form.school_num);
-                formData.append("fname", this.student_form.fname);
-                formData.append("mname", this.student_form.mname);
-                formData.append("lname", this.student_form.lname);
-                formData.append("gender", this.student_form.gender);
-                formData.append("age", this.student_form.age);
-                formData.append("birthday", this.student_form.birthday);
-                formData.append("course", this.student_form.course);
-                formData.append("department", this.student_form.department);
-                _context3.next = 19;
-                return _services_student_service__WEBPACK_IMPORTED_MODULE_0__["create_student"](formData);
+                formData.append("username", this.employee_form.username);
+                formData.append("email", this.employee_form.email);
+                formData.append("password", this.employee_form.password);
+                formData.append("password_confirmation", this.employee_form.password_confirmation);
+                formData.append("school_num", this.employee_form.school_num);
+                formData.append("fname", this.employee_form.fname);
+                formData.append("mname", this.employee_form.mname);
+                formData.append("lname", this.employee_form.lname);
+                formData.append("gender", this.employee_form.gender);
+                formData.append("age", this.employee_form.age);
+                formData.append("birthday", this.employee_form.birthday);
+                formData.append("title", this.employee_form.title);
+                formData.append("department", this.employee_form.department);
+                _context3.next = 18;
+                return _services_employee_service__WEBPACK_IMPORTED_MODULE_0__["create_employee"](formData);
 
-              case 19:
+              case 18:
                 response = _context3.sent;
-                this.loadPage(current_page);
-                this.$refs.addStudentMdl.hide();
+                this.loadEmployees();
+                this.$refs.addEmployeeMdl.hide();
                 Toast.fire({
                   icon: "success",
                   title: "Successfully added!"
                 });
-                _context3.next = 36;
+                _context3.next = 35;
                 break;
 
-              case 25:
-                _context3.prev = 25;
+              case 24:
+                _context3.prev = 24;
                 _context3.t0 = _context3["catch"](0);
                 _context3.t1 = _context3.t0.response.status;
-                _context3.next = _context3.t1 === 422 ? 30 : 33;
+                _context3.next = _context3.t1 === 422 ? 29 : 32;
                 break;
 
-              case 30:
+              case 29:
                 this.errors = _context3.t0.response.data.errors;
                 Toast.fire({
                   icon: "error",
                   title: "Please check your Input form"
                 });
-                return _context3.abrupt("break", 35);
+                return _context3.abrupt("break", 34);
 
-              case 33:
+              case 32:
                 Toast.fire({
                   icon: "error",
                   title: "Server error, Please try again!"
                 });
-                return _context3.abrupt("break", 35);
+                return _context3.abrupt("break", 34);
 
-              case 35:
+              case 34:
                 this.$Progress.fail();
 
-              case 36:
+              case 35:
                 this.$Progress.finish();
 
-              case 37:
+              case 36:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, this, [[0, 25]]);
+        }, _callee3, this, [[0, 24]]);
       }));
 
-      function addStudent() {
-        return _addStudent.apply(this, arguments);
+      function addEmployee() {
+        return _addEmployee.apply(this, arguments);
       }
 
-      return addStudent;
+      return addEmployee;
     }(),
     updateEmplopyeeBtn: function updateEmplopyeeBtn(data) {
-      this.student_update_form = _objectSpread({}, data);
-      this.$refs.updateStudentMdl.show();
+      this.employee_update_form = _objectSpread({}, data);
+      this.$refs.updateEmployeeMdl.show();
     },
-    updateEmplopyee: function () {
-      var _updateEmplopyee = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+    updateEmployee: function () {
+      var _updateEmployee = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
         var current_page, formData, response;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.prev = 0;
-                current_page = this.students_data.current_page;
+                current_page = this.employees_data.current_page;
                 this.$Progress.start();
                 formData = new FormData();
-                formData.append("user_id", this.student_update_form.user.id);
-                formData.append("username", this.student_update_form.user.username);
-                formData.append("email", this.student_update_form.user.email);
-                formData.append("password", this.student_update_form.user.password);
-                formData.append("password_confirmation", this.student_update_form.user.password_confirmation);
-                formData.append("school_num", this.student_update_form.school_num);
-                formData.append("fname", this.student_update_form.fname);
-                formData.append("mname", this.student_update_form.mname);
-                formData.append("lname", this.student_update_form.lname);
-                formData.append("gender", this.student_update_form.gender);
-                formData.append("age", this.student_update_form.age);
-                formData.append("birthday", this.student_update_form.birthday);
-                formData.append("course", this.student_update_form.course);
-                formData.append("department", this.student_update_form.department);
+                formData.append("user_id", this.employee_update_form.user.id);
+                formData.append("username", this.employee_update_form.user.username);
+                formData.append("email", this.employee_update_form.user.email);
+                formData.append("password", this.employee_update_form.user.password);
+                formData.append("password_confirmation", this.employee_update_form.user.password_confirmation);
+                formData.append("school_num", this.employee_update_form.school_num);
+                formData.append("fname", this.employee_update_form.fname);
+                formData.append("mname", this.employee_update_form.mname);
+                formData.append("lname", this.employee_update_form.lname);
+                formData.append("gender", this.employee_update_form.gender);
+                formData.append("age", this.employee_update_form.age);
+                formData.append("birthday", this.employee_update_form.birthday);
+                formData.append("title", this.employee_update_form.title);
+                formData.append("department", this.employee_update_form.department);
                 formData.append("_method", "put");
                 _context4.next = 21;
-                return _services_student_service__WEBPACK_IMPORTED_MODULE_0__["update_student"](this.student_update_form.id, formData);
+                return _services_employee_service__WEBPACK_IMPORTED_MODULE_0__["update_employee"](this.employee_update_form.id, formData);
 
               case 21:
                 response = _context4.sent;
                 this.loadPage(current_page);
-                this.$refs.updateStudentMdl.hide();
+                this.$refs.updateEmployeeMdl.hide();
                 Toast.fire({
                   icon: "success",
                   title: "Updated successfully!"
@@ -319,14 +318,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee4, this, [[0, 27]]);
       }));
 
-      function updateEmplopyee() {
-        return _updateEmplopyee.apply(this, arguments);
+      function updateEmployee() {
+        return _updateEmployee.apply(this, arguments);
       }
 
-      return updateEmplopyee;
+      return updateEmployee;
     }(),
-    deleteStudentBtn: function () {
-      var _deleteStudentBtn = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(id) {
+    deleteEmplopyeeBtn: function () {
+      var _deleteEmplopyeeBtn = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(id) {
         var _this = this;
 
         var current_page;
@@ -335,7 +334,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.prev = 0;
-                current_page = this.students_data.current_page;
+                current_page = this.employees_data.current_page;
                 _context5.next = 4;
                 return Swal.fire({
                   title: 'Are you sure?',
@@ -349,10 +348,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   if (result.isConfirmed) {
                     _this.$Progress.start();
 
-                    _services_student_service__WEBPACK_IMPORTED_MODULE_0__["delete_student"](id);
+                    _services_employee_service__WEBPACK_IMPORTED_MODULE_0__["delete_employee"](id);
                     Toast.fire({
                       icon: "success",
-                      title: "Student successfully Deleted"
+                      title: "employee successfully Deleted"
                     });
 
                     _this.loadPage(current_page);
@@ -381,24 +380,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee5, this, [[0, 6]]);
       }));
 
-      function deleteStudentBtn(_x) {
-        return _deleteStudentBtn.apply(this, arguments);
+      function deleteEmplopyeeBtn(_x) {
+        return _deleteEmplopyeeBtn.apply(this, arguments);
       }
 
-      return deleteStudentBtn;
+      return deleteEmplopyeeBtn;
     }()
   },
   mounted: function mounted() {
-    this.loadStudents();
+    this.loadEmployees();
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/admin/Student.vue?vue&type=template&id=63158655&":
-/*!****************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/admin/Student.vue?vue&type=template&id=63158655& ***!
-  \****************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/admin/Employee.vue?vue&type=template&id=c754e8f8&":
+/*!*****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/admin/Employee.vue?vue&type=template&id=c754e8f8& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -422,14 +421,14 @@ var render = function render() {
     staticClass: "col-sm-6"
   }, [_c("h1", {
     staticClass: "m-0"
-  }, [_vm._v("Student "), _c("button", {
+  }, [_vm._v("Employee "), _c("button", {
     staticClass: "btn btn-primary",
     attrs: {
       type: "button"
     },
     on: {
       click: function click($event) {
-        return _vm.showMdlAddStudent();
+        return _vm.showMdlAddEmployeeBtn();
       }
     }
   }, [_vm._v("Add "), _c("i", {
@@ -448,7 +447,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("h3", {
     staticClass: "card-title"
-  }, [_vm._v("List of Students")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("List of Employees")]), _vm._v(" "), _c("div", {
     staticClass: "card-tools"
   }, [_c("div", {
     staticClass: "input-group input-group-sm",
@@ -481,20 +480,20 @@ var render = function render() {
     staticClass: "card-body table-responsive p-0"
   }, [_c("table", {
     staticClass: "table table-hover text-nowrap"
-  }, [_vm._m(2), _vm._v(" "), _c("tbody", _vm._l(_vm.students_data.data, function (student, index) {
+  }, [_vm._m(2), _vm._v(" "), _c("tbody", _vm._l(_vm.employees_data.data, function (employee, index) {
     return _c("tr", {
       key: index,
       staticStyle: {
         "text-align": "center"
       }
-    }, [_c("td", [_vm._v(_vm._s(student.school_num))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("upText")(student.fname)) + " " + _vm._s(_vm._f("upText")(student.mname)) + ". " + _vm._s(_vm._f("upText")(student.lname)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(student.course))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(student.department))]), _vm._v(" "), _c("td", [_c("button", {
+    }, [_c("td", [_vm._v(_vm._s(employee.school_num))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("upText")(employee.fname)) + " " + _vm._s(_vm._f("upText")(employee.mname)) + ". " + _vm._s(_vm._f("upText")(employee.lname)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(employee.department))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(employee.title))]), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-success",
       attrs: {
         type: "button"
       },
       on: {
         click: function click($event) {
-          return _vm.updateEmplopyeeBtn(student);
+          return _vm.updateEmplopyeeBtn(employee);
         }
       }
     }, [_vm._v("\n                                                Edit "), _c("i", {
@@ -506,7 +505,7 @@ var render = function render() {
       },
       on: {
         click: function click($event) {
-          return _vm.deleteStudentBtn(student.id);
+          return _vm.deleteEmplopyeeBtn(employee.id);
         }
       }
     }, [_vm._v("\n                                                Delete "), _c("i", {
@@ -517,13 +516,13 @@ var render = function render() {
   }, [_c("pagination", {
     attrs: {
       limit: 10,
-      data: _vm.students_data
+      data: _vm.employees_data
     },
     on: {
       "pagination-change-page": _vm.loadPage
     }
   })], 1)])])])])]), _vm._v(" "), _c("b-modal", {
-    ref: "addStudentMdl",
+    ref: "addEmployeeMdl",
     attrs: {
       size: "lg",
       "hide-footer": "",
@@ -537,14 +536,14 @@ var render = function render() {
     on: {
       submit: function submit($event) {
         $event.preventDefault();
-        return _vm.addStudent.apply(null, arguments);
+        return _vm.addEmployee.apply(null, arguments);
       }
     }
   }, [_c("div", {
     staticClass: "form-row"
   }, [_c("div", {
     staticClass: "h5 pb-2 mb-2 col-md-12 form-group text-primary border-bottom border-primary"
-  }, [_vm._v("\n                            Student User Account Information\n                        ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                            Employee User Account Information\n                        ")]), _vm._v(" "), _c("div", {
     staticClass: "form-group col-md-6"
   }, [_c("label", {
     staticClass: "form-label",
@@ -555,8 +554,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_form.username,
-      expression: "student_form.username"
+      value: _vm.employee_form.username,
+      expression: "employee_form.username"
     }],
     staticClass: "form-control",
     "class": _vm.errors.username ? "is-invalid" : "",
@@ -565,13 +564,13 @@ var render = function render() {
       placeholder: "Enter Username"
     },
     domProps: {
-      value: _vm.student_form.username
+      value: _vm.employee_form.username
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_form, "username", $event.target.value);
+        _vm.$set(_vm.employee_form, "username", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.username ? _c("div", {
@@ -587,8 +586,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_form.email,
-      expression: "student_form.email"
+      value: _vm.employee_form.email,
+      expression: "employee_form.email"
     }],
     staticClass: "form-control",
     "class": _vm.errors.email ? "is-invalid" : "",
@@ -597,13 +596,13 @@ var render = function render() {
       placeholder: "Enter Email"
     },
     domProps: {
-      value: _vm.student_form.email
+      value: _vm.employee_form.email
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_form, "email", $event.target.value);
+        _vm.$set(_vm.employee_form, "email", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.email ? _c("div", {
@@ -619,8 +618,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_form.password,
-      expression: "student_form.password"
+      value: _vm.employee_form.password,
+      expression: "employee_form.password"
     }],
     staticClass: "form-control",
     "class": _vm.errors.password ? "is-invalid" : "",
@@ -629,13 +628,13 @@ var render = function render() {
       placeholder: "Enter Password"
     },
     domProps: {
-      value: _vm.student_form.password
+      value: _vm.employee_form.password
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_form, "password", $event.target.value);
+        _vm.$set(_vm.employee_form, "password", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.password ? _c("div", {
@@ -651,8 +650,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_form.password_confirmation,
-      expression: "student_form.password_confirmation"
+      value: _vm.employee_form.password_confirmation,
+      expression: "employee_form.password_confirmation"
     }],
     staticClass: "form-control",
     "class": _vm.errors.password_confirmation ? "is-invalid" : "",
@@ -661,20 +660,20 @@ var render = function render() {
       placeholder: "Repeat Password"
     },
     domProps: {
-      value: _vm.student_form.password_confirmation
+      value: _vm.employee_form.password_confirmation
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_form, "password_confirmation", $event.target.value);
+        _vm.$set(_vm.employee_form, "password_confirmation", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.password_confirmation ? _c("div", {
     staticClass: "invalid-feedback"
   }, [_vm._v(_vm._s(_vm.errors.password_confirmation[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "h5 pb-2 mb-2 col-md-12 form-group text-primary border-bottom border-primary"
-  }, [_vm._v("\n                            Student Personal Information\n                        ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                            Employee Personal Information\n                        ")]), _vm._v(" "), _c("div", {
     staticClass: "form-group col-md-5"
   }, [_c("label", {
     staticClass: "form-label",
@@ -685,8 +684,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_form.fname,
-      expression: "student_form.fname"
+      value: _vm.employee_form.fname,
+      expression: "employee_form.fname"
     }],
     staticClass: "form-control",
     "class": _vm.errors.fname ? "is-invalid" : "",
@@ -695,13 +694,13 @@ var render = function render() {
       placeholder: "Enter First Name"
     },
     domProps: {
-      value: _vm.student_form.fname
+      value: _vm.employee_form.fname
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_form, "fname", $event.target.value);
+        _vm.$set(_vm.employee_form, "fname", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.fname ? _c("div", {
@@ -717,8 +716,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_form.mname,
-      expression: "student_form.mname"
+      value: _vm.employee_form.mname,
+      expression: "employee_form.mname"
     }],
     staticClass: "form-control",
     "class": _vm.errors.mname ? "is-invalid" : "",
@@ -727,13 +726,13 @@ var render = function render() {
       placeholder: "Enter Middle Name"
     },
     domProps: {
-      value: _vm.student_form.mname
+      value: _vm.employee_form.mname
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_form, "mname", $event.target.value);
+        _vm.$set(_vm.employee_form, "mname", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.mname ? _c("div", {
@@ -749,8 +748,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_form.lname,
-      expression: "student_form.lname"
+      value: _vm.employee_form.lname,
+      expression: "employee_form.lname"
     }],
     staticClass: "form-control",
     "class": _vm.errors.lname ? "is-invalid" : "",
@@ -759,13 +758,13 @@ var render = function render() {
       placeholder: "Enter Last name"
     },
     domProps: {
-      value: _vm.student_form.lname
+      value: _vm.employee_form.lname
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_form, "lname", $event.target.value);
+        _vm.$set(_vm.employee_form, "lname", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.lname ? _c("div", {
@@ -781,8 +780,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_form.birthday,
-      expression: "student_form.birthday"
+      value: _vm.employee_form.birthday,
+      expression: "employee_form.birthday"
     }],
     staticClass: "form-control",
     "class": _vm.errors.birthday ? "is-invalid" : "",
@@ -790,13 +789,13 @@ var render = function render() {
       type: "date"
     },
     domProps: {
-      value: _vm.student_form.birthday
+      value: _vm.employee_form.birthday
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_form, "birthday", $event.target.value);
+        _vm.$set(_vm.employee_form, "birthday", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.birthday ? _c("div", {
@@ -812,8 +811,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_form.age,
-      expression: "student_form.age"
+      value: _vm.employee_form.age,
+      expression: "employee_form.age"
     }],
     staticClass: "form-control",
     "class": _vm.errors.age ? "is-invalid" : "",
@@ -822,13 +821,13 @@ var render = function render() {
       placeholder: "Enter age"
     },
     domProps: {
-      value: _vm.student_form.age
+      value: _vm.employee_form.age
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_form, "age", $event.target.value);
+        _vm.$set(_vm.employee_form, "age", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.age ? _c("div", {
@@ -844,8 +843,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_form.gender,
-      expression: "student_form.gender"
+      value: _vm.employee_form.gender,
+      expression: "employee_form.gender"
     }],
     staticClass: "custom-select",
     "class": _vm.errors.gender ? "is-invalid" : "",
@@ -861,7 +860,7 @@ var render = function render() {
           return val;
         });
 
-        _vm.$set(_vm.student_form, "gender", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        _vm.$set(_vm.employee_form, "gender", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }
     }
   }, [_c("option", {
@@ -886,12 +885,12 @@ var render = function render() {
     attrs: {
       "for": "exampleInputEmail1"
     }
-  }, [_vm._v("Student number")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Employee number")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_form.school_num,
-      expression: "student_form.school_num"
+      value: _vm.employee_form.school_num,
+      expression: "employee_form.school_num"
     }],
     staticClass: "form-control",
     "class": _vm.errors.school_num ? "is-invalid" : "",
@@ -900,13 +899,13 @@ var render = function render() {
       placeholder: "Enter employee number"
     },
     domProps: {
-      value: _vm.student_form.school_num
+      value: _vm.employee_form.school_num
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_form, "school_num", $event.target.value);
+        _vm.$set(_vm.employee_form, "school_num", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.school_num ? _c("div", {
@@ -922,8 +921,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_form.department,
-      expression: "student_form.department"
+      value: _vm.employee_form.department,
+      expression: "employee_form.department"
     }],
     staticClass: "custom-select",
     "class": _vm.errors.department ? "is-invalid" : "",
@@ -939,7 +938,7 @@ var render = function render() {
           return val;
         });
 
-        _vm.$set(_vm.student_form, "department", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        _vm.$set(_vm.employee_form, "department", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }
     }
   }, [_c("option", {
@@ -972,42 +971,42 @@ var render = function render() {
     attrs: {
       "for": "exampleInputEmail1"
     }
-  }, [_vm._v("Course")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Job title")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_form.course,
-      expression: "student_form.course"
+      value: _vm.employee_form.title,
+      expression: "employee_form.title"
     }],
     staticClass: "form-control",
-    "class": _vm.errors.course ? "is-invalid" : "",
+    "class": _vm.errors.title ? "is-invalid" : "",
     attrs: {
       type: "text",
       placeholder: "Enter job title"
     },
     domProps: {
-      value: _vm.student_form.course
+      value: _vm.employee_form.title
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_form, "course", $event.target.value);
+        _vm.$set(_vm.employee_form, "title", $event.target.value);
       }
     }
-  }), _vm._v(" "), _vm.errors.course ? _c("div", {
+  }), _vm._v(" "), _vm.errors.title ? _c("div", {
     staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.course[0]))]) : _vm._e()]), _vm._v(" "), _c("button", {
+  }, [_vm._v(_vm._s(_vm.errors.title[0]))]) : _vm._e()]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-primary col-12",
     attrs: {
       type: "submit"
     }
   }, [_vm._v("Submit")])])])])])]), _vm._v(" "), _c("b-modal", {
-    ref: "updateStudentMdl",
+    ref: "updateEmployeeMdl",
     attrs: {
       size: "lg",
       "hide-footer": "",
-      title: "Student Update Form"
+      title: "Employee update Form"
     }
   }, [_c("div", {
     staticClass: "d-block"
@@ -1017,14 +1016,14 @@ var render = function render() {
     on: {
       submit: function submit($event) {
         $event.preventDefault();
-        return _vm.updateEmplopyee.apply(null, arguments);
+        return _vm.updateEmployee.apply(null, arguments);
       }
     }
   }, [_c("div", {
     staticClass: "form-row"
   }, [_c("div", {
     staticClass: "h5 pb-2 mb-2 col-md-12 form-group text-primary border-bottom border-primary"
-  }, [_vm._v("\n                            Student User Account Information\n                        ")]), _vm._v(" "), Object.keys(_vm.student_update_form).length == 0 ? _c("div") : _c("div", {
+  }, [_vm._v("\n                            Employee User Account Information\n                        ")]), _vm._v(" "), Object.keys(_vm.employee_update_form).length == 0 ? _c("div") : _c("div", {
     staticClass: "form-row"
   }, [_c("div", {
     staticClass: "form-group col-md-6"
@@ -1037,8 +1036,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_update_form.user.username,
-      expression: "student_update_form.user.username"
+      value: _vm.employee_update_form.user.username,
+      expression: "employee_update_form.user.username"
     }],
     staticClass: "form-control",
     "class": _vm.errors.username ? "is-invalid" : "",
@@ -1047,13 +1046,13 @@ var render = function render() {
       placeholder: "Enter Username"
     },
     domProps: {
-      value: _vm.student_update_form.user.username
+      value: _vm.employee_update_form.user.username
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_update_form.user, "username", $event.target.value);
+        _vm.$set(_vm.employee_update_form.user, "username", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.username ? _c("div", {
@@ -1069,8 +1068,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_update_form.user.email,
-      expression: "student_update_form.user.email"
+      value: _vm.employee_update_form.user.email,
+      expression: "employee_update_form.user.email"
     }],
     staticClass: "form-control",
     "class": _vm.errors.email ? "is-invalid" : "",
@@ -1079,13 +1078,13 @@ var render = function render() {
       placeholder: "Enter Email"
     },
     domProps: {
-      value: _vm.student_update_form.user.email
+      value: _vm.employee_update_form.user.email
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_update_form.user, "email", $event.target.value);
+        _vm.$set(_vm.employee_update_form.user, "email", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.email ? _c("div", {
@@ -1101,8 +1100,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_update_form.user.password,
-      expression: "student_update_form.user.password"
+      value: _vm.employee_update_form.user.password,
+      expression: "employee_update_form.user.password"
     }],
     staticClass: "form-control",
     "class": _vm.errors.password ? "is-invalid" : "",
@@ -1111,13 +1110,13 @@ var render = function render() {
       placeholder: "Enter Password"
     },
     domProps: {
-      value: _vm.student_update_form.user.password
+      value: _vm.employee_update_form.user.password
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_update_form.user, "password", $event.target.value);
+        _vm.$set(_vm.employee_update_form.user, "password", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.password ? _c("div", {
@@ -1133,8 +1132,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_update_form.user.password_confirmation,
-      expression: "student_update_form.user.password_confirmation"
+      value: _vm.employee_update_form.user.password_confirmation,
+      expression: "employee_update_form.user.password_confirmation"
     }],
     staticClass: "form-control",
     "class": _vm.errors.password_confirmation ? "is-invalid" : "",
@@ -1143,20 +1142,20 @@ var render = function render() {
       placeholder: "Repeat Password"
     },
     domProps: {
-      value: _vm.student_update_form.user.password_confirmation
+      value: _vm.employee_update_form.user.password_confirmation
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_update_form.user, "password_confirmation", $event.target.value);
+        _vm.$set(_vm.employee_update_form.user, "password_confirmation", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.password_confirmation ? _c("div", {
     staticClass: "invalid-feedback"
   }, [_vm._v(_vm._s(_vm.errors.password_confirmation[0]))]) : _vm._e()])]), _vm._v(" "), _c("div", {
     staticClass: "h5 pb-2 mb-2 col-md-12 form-group text-primary border-bottom border-primary"
-  }, [_vm._v("\n                            Student Personal Information\n                        ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                            Employee Personal Information\n                        ")]), _vm._v(" "), _c("div", {
     staticClass: "form-group col-md-5"
   }, [_c("label", {
     staticClass: "form-label",
@@ -1167,8 +1166,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_update_form.fname,
-      expression: "student_update_form.fname"
+      value: _vm.employee_update_form.fname,
+      expression: "employee_update_form.fname"
     }],
     staticClass: "form-control",
     "class": _vm.errors.fname ? "is-invalid" : "",
@@ -1177,13 +1176,13 @@ var render = function render() {
       placeholder: "Enter First Name"
     },
     domProps: {
-      value: _vm.student_update_form.fname
+      value: _vm.employee_update_form.fname
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_update_form, "fname", $event.target.value);
+        _vm.$set(_vm.employee_update_form, "fname", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.fname ? _c("div", {
@@ -1199,8 +1198,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_update_form.mname,
-      expression: "student_update_form.mname"
+      value: _vm.employee_update_form.mname,
+      expression: "employee_update_form.mname"
     }],
     staticClass: "form-control",
     "class": _vm.errors.mname ? "is-invalid" : "",
@@ -1209,13 +1208,13 @@ var render = function render() {
       placeholder: "Enter Middle Name"
     },
     domProps: {
-      value: _vm.student_update_form.mname
+      value: _vm.employee_update_form.mname
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_update_form, "mname", $event.target.value);
+        _vm.$set(_vm.employee_update_form, "mname", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.mname ? _c("div", {
@@ -1231,8 +1230,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_update_form.lname,
-      expression: "student_update_form.lname"
+      value: _vm.employee_update_form.lname,
+      expression: "employee_update_form.lname"
     }],
     staticClass: "form-control",
     "class": _vm.errors.lname ? "is-invalid" : "",
@@ -1241,13 +1240,13 @@ var render = function render() {
       placeholder: "Enter Last name"
     },
     domProps: {
-      value: _vm.student_update_form.lname
+      value: _vm.employee_update_form.lname
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_update_form, "lname", $event.target.value);
+        _vm.$set(_vm.employee_update_form, "lname", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.lname ? _c("div", {
@@ -1263,8 +1262,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_update_form.birthday,
-      expression: "student_update_form.birthday"
+      value: _vm.employee_update_form.birthday,
+      expression: "employee_update_form.birthday"
     }],
     staticClass: "form-control",
     "class": _vm.errors.birthday ? "is-invalid" : "",
@@ -1272,13 +1271,13 @@ var render = function render() {
       type: "date"
     },
     domProps: {
-      value: _vm.student_update_form.birthday
+      value: _vm.employee_update_form.birthday
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_update_form, "birthday", $event.target.value);
+        _vm.$set(_vm.employee_update_form, "birthday", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.birthday ? _c("div", {
@@ -1294,8 +1293,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_update_form.age,
-      expression: "student_update_form.age"
+      value: _vm.employee_update_form.age,
+      expression: "employee_update_form.age"
     }],
     staticClass: "form-control",
     "class": _vm.errors.age ? "is-invalid" : "",
@@ -1304,13 +1303,13 @@ var render = function render() {
       placeholder: "Enter age"
     },
     domProps: {
-      value: _vm.student_update_form.age
+      value: _vm.employee_update_form.age
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_update_form, "age", $event.target.value);
+        _vm.$set(_vm.employee_update_form, "age", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.age ? _c("div", {
@@ -1326,8 +1325,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_update_form.gender,
-      expression: "student_update_form.gender"
+      value: _vm.employee_update_form.gender,
+      expression: "employee_update_form.gender"
     }],
     staticClass: "custom-select",
     "class": _vm.errors.gender ? "is-invalid" : "",
@@ -1343,7 +1342,7 @@ var render = function render() {
           return val;
         });
 
-        _vm.$set(_vm.student_update_form, "gender", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        _vm.$set(_vm.employee_update_form, "gender", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }
     }
   }, [_c("option", {
@@ -1368,12 +1367,12 @@ var render = function render() {
     attrs: {
       "for": "exampleInputEmail1"
     }
-  }, [_vm._v("Student number")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Employee number")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_update_form.school_num,
-      expression: "student_update_form.school_num"
+      value: _vm.employee_update_form.school_num,
+      expression: "employee_update_form.school_num"
     }],
     staticClass: "form-control",
     "class": _vm.errors.school_num ? "is-invalid" : "",
@@ -1382,13 +1381,13 @@ var render = function render() {
       placeholder: "Enter employee number"
     },
     domProps: {
-      value: _vm.student_update_form.school_num
+      value: _vm.employee_update_form.school_num
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_update_form, "school_num", $event.target.value);
+        _vm.$set(_vm.employee_update_form, "school_num", $event.target.value);
       }
     }
   }), _vm._v(" "), _vm.errors.school_num ? _c("div", {
@@ -1404,8 +1403,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_update_form.department,
-      expression: "student_update_form.department"
+      value: _vm.employee_update_form.department,
+      expression: "employee_update_form.department"
     }],
     staticClass: "custom-select",
     "class": _vm.errors.department ? "is-invalid" : "",
@@ -1421,7 +1420,7 @@ var render = function render() {
           return val;
         });
 
-        _vm.$set(_vm.student_update_form, "department", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        _vm.$set(_vm.employee_update_form, "department", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }
     }
   }, [_c("option", {
@@ -1454,32 +1453,32 @@ var render = function render() {
     attrs: {
       "for": "exampleInputEmail1"
     }
-  }, [_vm._v("Course")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Job title")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.student_update_form.course,
-      expression: "student_update_form.course"
+      value: _vm.employee_update_form.title,
+      expression: "employee_update_form.title"
     }],
     staticClass: "form-control",
-    "class": _vm.errors.course ? "is-invalid" : "",
+    "class": _vm.errors.title ? "is-invalid" : "",
     attrs: {
       type: "text",
       placeholder: "Enter job title"
     },
     domProps: {
-      value: _vm.student_update_form.course
+      value: _vm.employee_update_form.title
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.student_update_form, "course", $event.target.value);
+        _vm.$set(_vm.employee_update_form, "title", $event.target.value);
       }
     }
-  }), _vm._v(" "), _vm.errors.course ? _c("div", {
+  }), _vm._v(" "), _vm.errors.title ? _c("div", {
     staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.course[0]))]) : _vm._e()]), _vm._v(" "), _c("button", {
+  }, [_vm._v(_vm._s(_vm.errors.title[0]))]) : _vm._e()]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-primary col-12",
     attrs: {
       type: "submit"
@@ -1503,7 +1502,7 @@ var staticRenderFns = [function () {
     }
   }, [_vm._v("Dashboard")])]), _vm._v(" "), _c("li", {
     staticClass: "breadcrumb-item active"
-  }, [_vm._v("Students")])])]);
+  }, [_vm._v("Employees")])])]);
 }, function () {
   var _vm = this,
       _c = _vm._self._c;
@@ -1526,24 +1525,24 @@ var staticRenderFns = [function () {
     staticStyle: {
       "text-align": "center"
     }
-  }, [_c("th", [_vm._v("Student Number")]), _vm._v(" "), _c("th", [_vm._v("Name")]), _vm._v(" "), _c("th", [_vm._v("Course")]), _vm._v(" "), _c("th", [_vm._v("Department")]), _vm._v(" "), _c("th", [_vm._v("Action")])])]);
+  }, [_c("th", [_vm._v("School Number")]), _vm._v(" "), _c("th", [_vm._v("Name")]), _vm._v(" "), _c("th", [_vm._v("Department")]), _vm._v(" "), _c("th", [_vm._v("Title")]), _vm._v(" "), _c("th", [_vm._v("Action")])])]);
 }];
 render._withStripped = true;
 
 
 /***/ }),
 
-/***/ "./resources/js/components/pages/admin/Student.vue":
-/*!*********************************************************!*\
-  !*** ./resources/js/components/pages/admin/Student.vue ***!
-  \*********************************************************/
+/***/ "./resources/js/components/pages/admin/Employee.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/pages/admin/Employee.vue ***!
+  \**********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Student_vue_vue_type_template_id_63158655___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Student.vue?vue&type=template&id=63158655& */ "./resources/js/components/pages/admin/Student.vue?vue&type=template&id=63158655&");
-/* harmony import */ var _Student_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Student.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/admin/Student.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Employee_vue_vue_type_template_id_c754e8f8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Employee.vue?vue&type=template&id=c754e8f8& */ "./resources/js/components/pages/admin/Employee.vue?vue&type=template&id=c754e8f8&");
+/* harmony import */ var _Employee_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Employee.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/admin/Employee.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1553,9 +1552,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Student_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Student_vue_vue_type_template_id_63158655___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Student_vue_vue_type_template_id_63158655___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Employee_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Employee_vue_vue_type_template_id_c754e8f8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Employee_vue_vue_type_template_id_c754e8f8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1565,73 +1564,73 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/pages/admin/Student.vue"
+component.options.__file = "resources/js/components/pages/admin/Employee.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/pages/admin/Student.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************!*\
-  !*** ./resources/js/components/pages/admin/Student.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************/
+/***/ "./resources/js/components/pages/admin/Employee.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/pages/admin/Employee.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Student_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Student.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/admin/Student.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Student_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Employee_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Employee.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/admin/Employee.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Employee_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/pages/admin/Student.vue?vue&type=template&id=63158655&":
-/*!****************************************************************************************!*\
-  !*** ./resources/js/components/pages/admin/Student.vue?vue&type=template&id=63158655& ***!
-  \****************************************************************************************/
+/***/ "./resources/js/components/pages/admin/Employee.vue?vue&type=template&id=c754e8f8&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/pages/admin/Employee.vue?vue&type=template&id=c754e8f8& ***!
+  \*****************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Student_vue_vue_type_template_id_63158655___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Student.vue?vue&type=template&id=63158655& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/admin/Student.vue?vue&type=template&id=63158655&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Student_vue_vue_type_template_id_63158655___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Employee_vue_vue_type_template_id_c754e8f8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Employee.vue?vue&type=template&id=c754e8f8& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/admin/Employee.vue?vue&type=template&id=c754e8f8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Employee_vue_vue_type_template_id_c754e8f8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Student_vue_vue_type_template_id_63158655___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Employee_vue_vue_type_template_id_c754e8f8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/services/student_service.js":
-/*!**************************************************!*\
-  !*** ./resources/js/services/student_service.js ***!
-  \**************************************************/
-/*! exports provided: get_all_students, create_student, update_student, delete_student, student_page */
+/***/ "./resources/js/services/employee_service.js":
+/*!***************************************************!*\
+  !*** ./resources/js/services/employee_service.js ***!
+  \***************************************************/
+/*! exports provided: get_all_employees, create_employee, update_employee, delete_employee, employee_page */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_all_students", function() { return get_all_students; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create_student", function() { return create_student; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update_student", function() { return update_student; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "delete_student", function() { return delete_student; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "student_page", function() { return student_page; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_all_employees", function() { return get_all_employees; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create_employee", function() { return create_employee; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update_employee", function() { return update_employee; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "delete_employee", function() { return delete_employee; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "employee_page", function() { return employee_page; });
 /* harmony import */ var _http_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./http_service */ "./resources/js/services/http_service.js");
 
-function get_all_students() {
-  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["http"])().get('/student');
+function get_all_employees() {
+  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["http"])().get('/employee');
 }
-function create_student(data) {
-  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["httpFile"])().post('/student', data);
+function create_employee(data) {
+  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["httpFile"])().post('/employee', data);
 }
-function update_student(id, data) {
-  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["httpFile"])().post("student/".concat(id), data);
+function update_employee(id, data) {
+  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["httpFile"])().post("employee/".concat(id), data);
 }
-function delete_student(id) {
-  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["http"])()["delete"]("student/".concat(id));
+function delete_employee(id) {
+  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["http"])()["delete"]("employee/".concat(id));
 }
-function student_page(page) {
-  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["httpFile"])().get('/student?page=' + page);
+function employee_page(page) {
+  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["httpFile"])().get('/employee?page=' + page);
 }
 
 /***/ })

@@ -1,7 +1,7 @@
 import { http, httpFile } from "./http_service";
 
 export function get_all_schedule(){
-    return http().get('/days')
+    return http().get('/schedule')
 }
 
 export function get_all_days(){

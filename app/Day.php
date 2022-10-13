@@ -11,7 +11,7 @@ class Day extends Model
         'name_day',
     ];
 
-    public function schdules()
+    public function schedules()
     {
         return $this->belongsToMany(Schedule::class)->withPivot('day_id');
     }

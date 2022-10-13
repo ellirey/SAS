@@ -28,44 +28,17 @@
                                         <tr style="text-align: center;">
                                             <th>#</th>
                                             <th>Day</th>
+                                            <th>School Year</th>
                                             <th>Appointments</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
-                                        <tr style="text-align: center;">
-                                            <td>1</td>
-                                            <td>Monday</td>
-                                            <td>
-                                                <button type="button" class="btn btn-primary">
-                                                    Appointments <span class="badge text-bg-secondary">4</span>
-                                                </button>
-
-                                                <!-- <button type="button" class="btn btn-success" >
-                                                    Edit <i class="fa-solid fa-pen-to-square"></i>
-                                                </button> -->
-                                            </td> 
-
-                                            <td>
-                                                <!-- <button type="button" class="btn btn-success" @click="updateGuestBtn(guest)">
-                                                    Edit <i class="fa-solid fa-pen-to-square"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-danger" @click="deleteGuestBtn(guest.id)">
-                                                    Delete <i class="fa-solid fa-trash"></i>
-                                                </button> -->
-
-                                                <button type="button" class="btn btn-success" >
-                                                    Edit <i class="fa-solid fa-pen-to-square"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-danger">
-                                                    Delete <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
                                         <tr style="text-align: center;" v-for="(schedule ,index) in schedules_data.data" :key="index">
                                             <td>1</td>
-                                            <td>Monday</td>
+                                            <td>{{schedule.days[0].name_day}}</td>
+                                            <td>{{schedule.school_year}}</td>
                                             <td>
                                                 <button type="button" class="btn btn-primary">
                                                     Appointments <span class="badge text-bg-secondary">4</span>
@@ -125,16 +98,18 @@
 
                              <div class="form-group col-md-6">
                                <label for="selectpos" class="form-label">Day</label>
-                                 <select class="custom-select" id="selectpos" v-model="schudule_form.name_days" :class="errors.department ? 'is-invalid' : ''">
+                                 <select class="custom-select" v-model="schudule_form.day_id" :class="errors.day_id ? 'is-invalid' : ''">
                                     <option selected value="" disabled>Select day</option>
                                     <option v-for="(day, index) in days_data" :key="index" :value="day.id">{{day.name_day}}</option>
                                 </select>
-                                <div class="invalid-feedback" v-if="errors.gender">{{errors.gender[0]}}</div>
+                                <div class="invalid-feedback" v-if="errors.day_id">{{errors.day_id[0]}}</div>
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1" class="form-label" >School Year</label>
-                                <date-picker v-model="schudule_form.year" :config="options" placeholder="Select School year"></date-picker>
+                                <date-picker v-model="schudule_form.year" :config="options" placeholder="Select School year"  :class="errors.year ? 'is-invalid' : ''"></date-picker>
+                                <div class="invalid-feedback" v-if="errors.year">{{errors.year[0]}}</div>
+
                             </div>
                             
 
@@ -169,6 +144,7 @@ export default {
             schudule_form: {
                 year:"",
                 name_days: "",
+                day_id: "",
             },
 
             options: {
@@ -186,6 +162,19 @@ export default {
 
         addScheduleBtn(){
             this.$refs.addScheduleMdl.show();
+        },
+
+
+        loadSchedules:async function(){
+            try {
+                this.$Progress.start()
+                const response = await scheduleService.get_all_schedule()
+                this.schedules_data = response.data;
+
+            } catch (e) {
+
+            }
+            this.$Progress.finish()
         },
 
         loadDays:async function(){
@@ -210,13 +199,13 @@ export default {
             try {
                 this.$Progress.start()
                 let formData = new FormData();
-                formData.append("employee_id ", this.$store.state.user_profile.role);
+                formData.append("employee_id", this.$store.state.user_profile.id);
                 formData.append("year", this.schudule_form.year);
-                formData.append("name_days", this.schudule_form.name_days);
+                formData.append("day_id", this.schudule_form.day_id);
 
 
                 const response = await scheduleService.create_schedule(formData);      
-                // this.loadEmployees();
+                this.loadSchedules();
                 this.$refs.addScheduleMdl.hide();
                 Toast.fire({
                     icon: "success",
@@ -224,13 +213,29 @@ export default {
                 });
 
             } catch (e) {
-
+                switch(e.response.status){
+                    case 422:
+                        this.errors = e.response.data.errors;
+                        Toast.fire({
+                            icon: "error",
+                            title: "Please check your Input form"
+                        });
+                    break;
+                    default: 
+                        Toast.fire({
+                            icon: "error",
+                            title: "Server error, Please try again!"
+                        });
+                    break;
+                }
+                this.$Progress.fail();  
             }
         }
     },
 
     mounted() {
         this.loadDays();
+        this.loadSchedules();
     }   
 }
 </script>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Day;
 use App\Schedule;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class DayController extends Controller
 {
     /**
@@ -12,13 +12,25 @@ class DayController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(){  
+        $this->middleware('auth:api');
+    }   
+    
+    
     public function index()
     {
      
     }
 
     public function getAllDays(){
-        $days = Day::all(['name_day']);
+
+        $user_id = Auth::user()->id;
+
+        $schedule = Schedule::with('days')->where('employee_id', $user_id)->first();
+
+        $days = Day::whereDoesntHave('schedules')->get(['id', 'name_day']);
+      
 
         return $days;
     }

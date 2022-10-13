@@ -14,7 +14,9 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        //
+        $schedules = Schedule::with('days')->paginate(5);
+
+        return $schedules;
     }
 
     /**
@@ -35,6 +37,20 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
+        $validateData = $request->validate([
+            'day_id'          =>      ['required'],
+            'year'            =>      ['required'],
+        ]);
+        
+        $schedule = Schedule::create([
+            'employee_id'   =>  $request->employee_id,
+            'school_year'   =>  $request->year,
+        ]);
+        $schedule->save();
+
+        $schedule->days()->attach($request->day_id);
+
+
         return $request->all();
     }
 
