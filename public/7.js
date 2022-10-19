@@ -295,7 +295,7 @@ var render = function render() {
       staticStyle: {
         "text-align": "center"
       }
-    }, [_c("td", [_vm._v("1")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(schedule.days[0].name_day))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(schedule.school_year))]), _vm._v(" "), _vm._m(2, true), _vm._v(" "), _vm._m(3, true)]);
+    }, [_c("td", [_vm._v("1")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(schedule.name_day))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(schedule.school_year))]), _vm._v(" "), _vm._m(2, true), _vm._v(" "), _vm._m(3, true)]);
   }), 0)])]), _vm._v(" "), _c("div", {
     staticClass: "card-footer justify-content-md-center"
   }, [_c("pagination", {

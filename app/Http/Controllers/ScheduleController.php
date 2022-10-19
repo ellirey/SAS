@@ -45,6 +45,7 @@ class ScheduleController extends Controller
         $schedule = Schedule::create([
             'employee_id'   =>  $request->employee_id,
             'school_year'   =>  $request->year,
+            'status'        =>  1
         ]);
         $schedule->save();
 

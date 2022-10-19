@@ -37,7 +37,7 @@
 
                                         <tr style="text-align: center;" v-for="(schedule ,index) in schedules_data.data" :key="index">
                                             <td>1</td>
-                                            <td>{{schedule.days[0].name_day}}</td>
+                                            <td>{{schedule.name_day}}</td>
                                             <td>{{schedule.school_year}}</td>
                                             <td>
                                                 <button type="button" class="btn btn-primary">
