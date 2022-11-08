@@ -32,13 +32,19 @@ class AuthController extends Controller
 
         if($user->role == "admin"){
             $tokenPermission = $user->createToken('Personal Access Token', ['admin']);
+            $user_data = User::with('employee')->where('id', $user->id)->first();
         } elseif($user->role == "employee") {    
             $tokenPermission = $user->createToken('Personal Access Token', ['employee']);
+            $user_data = User::with('employee')->where('id', $user->id)->first();
         } elseif($user->role == "guest") {    
             $tokenPermission = $user->createToken('Personal Access Token', ['guest']);
+            $user_data = User::with('guest')->where('id', $user->id)->first();
         }else{
             $tokenPermission = $user->createToken('Personal Access Token', ['student']);
+            $user_data = User::with('student')->where('id', $user->id)->first();
+            
         }
+
 
         $token = $tokenPermission->token;
 
@@ -48,7 +54,7 @@ class AuthController extends Controller
         
         if($token->save()){
             return response()->json([
-                'user' => $user,
+                'user' => $user_data,
                 'access_token' => $tokenPermission->accessToken,
                 'token_type' => 'Bearer',
                 'token_scope' => $tokenPermission->token->scopes[0],
@@ -69,11 +75,11 @@ class AuthController extends Controller
 
         
         if($user_data->role == "admin" || $user_data->role == "employee") {
-            $user = User::with('employees')->first();
+            $user = User::with('employee')->where('id', $user_id)->first();
         } else if($user_data->role == "student"){
-            $user = User::with('students')->first();
+            $user = User::with('student')->where('id', $user_id)->first();
         } else {
-            $user = User::with('guest')->first();
+            $user = User::with('guest')->where('id', $user_id)->first();
         }
 
         if($user) {

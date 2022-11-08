@@ -11,11 +11,16 @@ class Day extends Model
         'name_day',
     ];
 
-    public function schedules()
-    {
-        return $this->belongsToMany(Schedule::class)->withPivot('day_id');
-    }
+    // public function schedules()
+    // {
+    //     return $this->belongsToMany(Schedule::class)->withPivot('day_id');
+    // }
 
+
+
+    // public function schedule(){
+    //     return $this->belongsTo('App\Schedule', 'schedule_id', 'id');
+    // }
 
 
 }

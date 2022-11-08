@@ -382,7 +382,7 @@ export default {
 
         addGuest: async function(){
             try { 
-                  var current_page = this.guests_data.current_page;
+                var current_page = this.guests_data.current_page;
 
                 this.$Progress.start()
                 let formData = new FormData();

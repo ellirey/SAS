@@ -39,15 +39,15 @@ class User extends Authenticatable
     ];
 
 
-    public function employees(){
-        return $this->hasMany('App\Employee', 'user_id', 'id');
+    public function employee(){
+        return $this->hasOne('App\Employee', 'user_id', 'id');
     }
 
-    public function students(){
-        return $this->hasMany('App\Student', 'user_id', 'id');
+    public function student(){
+        return $this->hasOne('App\Student', 'user_id', 'id');
     }
 
-    public function guests(){
-        return $this->hasMany('App\Guest', 'user_id', 'id');
+    public function guest(){
+        return $this->hasOne('App\Guest', 'user_id', 'id');
     }
 }

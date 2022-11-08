@@ -56,6 +56,13 @@ const routes = [
             },
 
 
+            {
+                path : 'schedules',
+                name : 'schedules',
+                component : () => import('./components/pages/admin/Schedule.vue'), 
+            }, 
+
+
 
             
 
@@ -72,19 +79,20 @@ const routes = [
             // },
     
         ],
-        beforeEnter(to, from, next){
-            if(!auth.isLoggedIn()){
-                next('login');
-            } else {
-                if(auth.getUserRole() == 'admin'){
-                    next();
-                } else if(auth.getUserRole() == 'employee'){
-                    next();
-                } else {
-                    next('/')
-                }
-            }
-        }
+        // beforeEnter(to, from, next){
+        //     if(!auth.isLoggedIn()){
+        //         next('login');
+        //     } else {
+        //         if(auth.getUserRole() == 'admin'){
+        //             next();
+        //         } else if(auth.getUserRole() == 'employee'){
+        //             next();
+                
+        //         } else {
+        //             next('/')
+        //         }
+        //     }
+        // }
     },
 
     

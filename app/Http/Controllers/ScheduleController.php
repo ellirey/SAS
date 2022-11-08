@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Schedule;
+use App\Employee;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
+
+    public function __construct(){  
+        $this->middleware('auth:api');
+    }   
+
     /**
      * Display a listing of the resource.
      *
@@ -14,10 +22,12 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        $schedules = Schedule::with('days')->paginate(5);
+        $employee = Auth::user()->employee;
+
+        $schedules = Schedule::where('employee_id', $employee->id)->paginate(5);
 
         return $schedules;
-    }
+    } 
 
     /**
      * Show the form for creating a new resource.
@@ -38,18 +48,19 @@ class ScheduleController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'day_id'          =>      ['required'],
+            'name_day'        =>      ['required'],
             'year'            =>      ['required'],
         ]);
         
         $schedule = Schedule::create([
             'employee_id'   =>  $request->employee_id,
             'school_year'   =>  $request->year,
+            'day'           =>  $request->name_day,
             'status'        =>  1
         ]);
         $schedule->save();
 
-        $schedule->days()->attach($request->day_id);
+        // $schedule->days()->attach($request->day_id);
 
 
         return $request->all();
@@ -86,7 +97,30 @@ class ScheduleController extends Controller
      */
     public function update(Request $request, Schedule $schedule)
     {
-        //
+        $validateData = $request->validate([
+            'day'               =>      ['required'],
+            'school_year'               =>      ['required'],
+
+        ]);
+
+
+        $schedule->school_year = $request->school_year;
+        $schedule->day         = $request->day;
+
+
+        if($schedule->save()) {
+            return response()->json([
+                'message'       =>      'Schedule updated successfully!',
+                'status_code'   =>      201
+            ], 201);
+        } else {
+            return response()->json([
+                'message'       =>      'Some error occurred, Please try again!',
+                'status_code'   =>      500
+            ], 500);
+        }
+        
+
     }
 
     /**
@@ -97,6 +131,16 @@ class ScheduleController extends Controller
      */
     public function destroy(Schedule $schedule)
     {
-        //
+        if($schedule->delete()) {
+            return response()->json([
+                'message'       =>      'schedule data deleted successfully!',
+                'status_code'   =>      201
+            ], 201);
+        } else {
+            return response()->json([
+                'message'       =>      'Some error occurred, Please try again!',
+                'status_code'   =>      500
+            ], 500);
+        }
     }
 }

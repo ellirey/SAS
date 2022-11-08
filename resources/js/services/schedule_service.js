@@ -12,3 +12,17 @@ export function get_all_days(){
 export function create_schedule(data){
     return httpFile().post('/schedule', data)
 }
+
+
+export function update_schedule(id, data){
+    return httpFile().post(`schedule/${id}`, data);
+}
+
+
+export function delete_schedule(id){
+    return http().delete(`schedule/${id}`);
+}
+
+
+
+

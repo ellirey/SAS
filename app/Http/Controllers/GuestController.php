@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Hash;
 
 class GuestController extends Controller
 {
+    public function __construct(){  
+        $this->middleware('auth:api');
+    }   
+    
+    
     /**
      * Display a listing of the resource.
      *
@@ -77,8 +82,8 @@ class GuestController extends Controller
 
         $guest = Guest::create([
             'user_id'        =>  $user->id,
-            'username'      =>  $request->job_specialization,
-            'password'      =>  Hash::make($request->password),
+            // 'username'      =>  $request->job_specialization,
+            // 'password'      =>  Hash::make($request->password),
           
             'fname'         =>  $request->fname,
             'mname'         =>  $request->mname,
@@ -182,7 +187,7 @@ class GuestController extends Controller
 
         $user->username =   $request->username;
         $user->email    =   $request->email;
-        $user->password =   $password;
+        $user->password =   Hash::make($request->password);
         $user->save();
 
         $guest->fname        =   $request->fname;

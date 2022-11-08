@@ -25,10 +25,26 @@ Route::group(['prefix' => 'auth'], function() {
 });
 
 
-Route::resource('employee', 'EmployeeController');
-Route::resource('student', 'StudentController');
-Route::resource('guest', 'GuestController');
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::group(['middleware' => 'scope:admin,employee'], function () {
 
-Route::resource('schedule', 'ScheduleController');
+        Route::resource('employee', 'EmployeeController');
+        Route::resource('student', 'StudentController');
+        Route::resource('guest', 'GuestController');
+        
+        Route::resource('schedule', 'ScheduleController');
+        
+        Route::get('/get-all-days', 'DayController@getAllDays');
 
-Route::get('/get-all-days', 'DayController@getAllDays');
+
+    });
+});
+
+
+// Route::resource('employee', 'EmployeeController');
+// Route::resource('student', 'StudentController');
+// Route::resource('guest', 'GuestController');
+
+// Route::resource('schedule', 'ScheduleController');
+
+// Route::get('/get-all-days', 'DayController@getAllDays');

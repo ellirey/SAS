@@ -152,9 +152,10 @@ export default {
 */
 
 .bg-image {
-  background-image: url('https://cvsu.edu.ph/wp-content/uploads/2018/01/AerialView.jpg');
+  background-image: url('/imgs/cavsu.jpg');
   background-size: cover;
   background-position: center center;
+  
 }
 .login-content{
     min-height: 100vh;

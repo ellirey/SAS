@@ -15,7 +15,19 @@
                         <img src="/imgs/student.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a  class="d-block">Elli Rey</a>
+                        <a class="d-block">
+                          
+                            <div v-if="Object.keys(logged_user).length == 0">
+
+                            </div>
+
+                            <div  class="form-row" v-else >
+                              
+                                {{logged_user.employee.fname | upText}} {{logged_user.employee.mname | upText}}. {{logged_user.employee.lname | upText}}
+                            </div>
+
+                           
+                        </a>
                     </div>
                 </div>
 
@@ -23,7 +35,13 @@
 
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item">
+                            <router-link to="/admin/schedules" class="nav-link" exact>
+                                <i class="nav-icon fa-solid fa-calendar-days"></i>
 
+                                <p>Schedule</p>
+                            </router-link>
+                        </li>
 
                         <li class="nav-header">Administrator</li>
                         
@@ -100,12 +118,32 @@
 </template>
 
 <script>
+import * as authService from '../../../services/auth_service';
 export default {
     data() {
         return { 
-
+            logged_user : {},
         }
         
+    },
+
+
+    beforeCreate: async function () {
+        try {
+            if(authService.isLoggedIn()) {
+                const response = await authService.getUserProfile();
+                // console.log(response.data)
+                // this.$store.dispatch('authenticate', response.data);
+                this.logged_user = response.data
+            }
+        } catch (error) {
+
+        }
+    },
+
+
+    methods: {
+
     },
 }
 </script>

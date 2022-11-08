@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
+    public function __construct(){  
+        $this->middleware('auth:api');
+    }   
+    
     /**
      * Display a listing of the resource.
      *
@@ -70,8 +74,8 @@ class StudentController extends Controller
 
         $student = Student::create([
             'user_id'       =>  $user->id,
-            'username'      =>  $request->job_specialization,
-            'password'      =>  Hash::make($request->password),
+            // 'username'      =>  $request->job_specialization,
+            // 'password'      =>  Hash::make($request->password),
           
             'fname'         =>  $request->fname,
             'mname'         =>  $request->mname,
@@ -174,7 +178,7 @@ class StudentController extends Controller
 
         $user->username =   $request->username;
         $user->email    =   $request->email;
-        $user->password =   $password;
+        $user->password =   Hash::make($request->password);
         $user->save();
 
 

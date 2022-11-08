@@ -19,6 +19,10 @@ class CreateSchedulesTable extends Migration
             
             $table->bigInteger('employee_id')->unsigned();
             $table->foreign('employee_id')->references('id')->on('employees');
+
+            $table->string('day');
+
+
             $table->year('school_year');
             
             // $table->bigInteger('day_id')->unsigned();
