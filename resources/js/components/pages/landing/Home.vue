@@ -1,33 +1,39 @@
 <template>
-  <div class="wrapper">
-      <router-view v-slot="{ Component }">
-        <transition 
-          enter-active-class="animate__animated animate__fadeInLeft"
-          leave-active-class="animate__animated animate__fadeOutLeft"  
-          mode="out-in"
-        >
-          <component :is="Component" />
-        </transition>
-      </router-view>
-  </div>
+    <div>
+        <!-- <div id="wrapper">
+            <Sidebar />
+            <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content">
+                    <Header />   
+                    <router-view></router-view>
+                </div>
+                <Footer />
+
+            </div>
+        </div> -->
+        <Header />   
+        
+
+
+        <router-view></router-view>
+
+    </div>    
 </template>
 
 <script>
-import Navbar from '../../layouts/admin/Navbar.vue';
-import Footer from '../../layouts/admin/Footer.vue';
-import Sidebar from '../../layouts/admin/Sidebar.vue';
+import Header from '../../layouts/landing/Header.vue';
+// import Footer from '../../layouts/admin/Footer.vue';
+// import Sidebar from '../../layouts/admin/Sidebar.vue';
 
 
 export default {
-    // created(){
-    //     document.querySelector('body').classList.remove('bg-gradient-primary')
-    // },
-
-    
+    created(){
+        document.querySelector('body').classList.remove('bg-gradient-primary')
+    },
   components: { 
-    Navbar,
-    Sidebar,
-    Footer 
+    Header,
+    // Sidebar,
+    // Footer 
   },
     data() {
         return {
@@ -44,16 +50,17 @@ export default {
 </script>
 
 <style>
-   
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/public/fonts/montserrat/Montserrat-Regular.ttf');
+    font-size: normal;
+}
 
-
-    .fade-enter-active,
-    .fade-leave-active {
-      transition: opacity 0.5s ease;
-    }
-    .fade-enter-from,
-    .fade-leave-to {
-      opacity: 0;
-    }
-
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: normal;
+    /* background: fffff; */
+     /* font-weight: 480; */
+  
+}
 </style>

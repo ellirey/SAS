@@ -13,6 +13,7 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
         />
         <!-- Styles -->
+        <link href="{{ asset('css/landing.css') }}" rel="stylesheet" type="text/css">
         
         <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
     </head>

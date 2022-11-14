@@ -11,16 +11,37 @@ const routes = [
             {
                 path : '',
                 name : 'about',
-                component : () => import('./components/pages/landing/Dashboard.vue'), 
+                component : () => import('./components/pages/landing/About.vue'), 
             }, 
 
             {
-                path : 'schedule',
-                name : 'schedule',
-                component : () => import('./components/pages/landing/Schedule.vue'), 
+                path : 'profile',
+                name : 'profile',
+                component : () => import('./components/pages/landing/Profile.vue'), 
+                beforeEnter(to, from, next){
+                    if(!auth.isLoggedIn()){
+                        next('login');
+                    } else {
+                    
+                        if(auth.getUserRole() == 'student' || auth.getUserRole() == 'guest' ){
+                            next();
+                        } else {
+                            next('/')
+                        }
+                    }
+                }
             }, 
-
+            {
+                path : 'appointment',
+                name : 'appointment',
+                component : () => import('./components/pages/landing/Appointment.vue'), 
+            }, 
+        
         ],
+
+      
+
+
     },
 
 
@@ -79,20 +100,20 @@ const routes = [
             // },
     
         ],
-        // beforeEnter(to, from, next){
-        //     if(!auth.isLoggedIn()){
-        //         next('login');
-        //     } else {
-        //         if(auth.getUserRole() == 'admin'){
-        //             next();
-        //         } else if(auth.getUserRole() == 'employee'){
-        //             next();
+        beforeEnter(to, from, next){
+            if(!auth.isLoggedIn()){
+                next('login');
+            } else {
+                if(auth.getUserRole() == 'admin'){
+                    next();
+                } else if(auth.getUserRole() == 'employee'){
+                    next();
                 
-        //         } else {
-        //             next('/')
-        //         }
-        //     }
-        // }
+                } else {
+                    next('/')
+                }
+            }
+        }
     },
 
     

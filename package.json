@@ -33,6 +33,7 @@
         "sweetalert2": "^11.4.37",
         "vue-bootstrap-datetimepicker": "^5.0.1",
         "vue-progressbar": "^0.7.5",
+        "vue-qr-generator": "^3.0.1",
         "vue-router": "^3.6.5",
         "vuex": "^3.6.2"
     }

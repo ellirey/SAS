@@ -1,15 +1,15 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[7],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/landing/Schedule.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/landing/Schedule.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/landing/Appointment.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/landing/Appointment.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _services_schedule_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../services/schedule_service */ "./resources/js/services/schedule_service.js");
+/* harmony import */ var _services_appointment_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../services/appointment_service */ "./resources/js/services/appointment_service.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -24,344 +24,319 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      schedules_data: {},
-      search: '',
-      errors: '',
-      page: 1,
-      nextPage: 0,
-      schudule_form: {
-        year: "",
-        name_day: "",
-        day_id: ""
+      appointments_data: {},
+      appointment_form: {
+        cough_check_no: '',
+        cough_check_yes: '',
+        shortness_check_no: '',
+        shortness_check_yes: '',
+        appointment_date: '',
+        department: '',
+        visiting_person: '',
+        selected_day: '',
+        schedule_id: '',
+        selected_year: ''
       },
-      schudule_update_form: {},
-      options: {
-        format: 'YYYY',
-        useCurrent: false
-      },
-      dates: "2022",
-      days_data: {}
+      schedules: {},
+      available_schedule: {},
+      available_department: {},
+      available_person: {},
+      available_days: {},
+      qrData: '',
+      errors: ''
     };
   },
-  methods: {
-    addScheduleBtn: function addScheduleBtn() {
-      this.$refs.addScheduleMdl.show();
+  watch: {
+    'appointment_form.appointment_date': {
+      handler: function handler(newVal, oldVal) {
+        this.appointment_form.department = '';
+        this.appointment_form.visiting_person = '';
+        this.available_schedule = {};
+        this.available_department = {};
+        this.available_person = {};
+        this.available_days = {};
+        var sel_date = new Date(newVal).getFullYear();
+        var day_name = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][new Date(newVal).getDay()];
+        this.appointment_form.selected_day = day_name;
+        var schedules_data = this.schedules;
+        var department = [];
+        var available = [];
+        this.appointment_form.selected_year = sel_date;
+        $.each(schedules_data, function (key, value) {
+          if (value.school_year == sel_date) {
+            if (value.day == day_name) {
+              department.push(value.employee.department);
+              available.push(value);
+            }
+          }
+        });
+
+        var unique_department = _toConsumableArray(new Set(department));
+
+        this.available_department = unique_department;
+        this.available_schedule = available;
+      },
+      deep: true
     },
-    loadSchedules: function () {
-      var _loadSchedules = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    'appointment_form.department': {
+      handler: function handler(newVal, oldVal) {
+        this.appointment_form.visiting_person = '';
+        var sel_department = newVal;
+        var available_sched = this.available_schedule;
+        var sel_day = this.appointment_form.selected_day;
+        var persons = [];
+        $.each(available_sched, function (key, value) {
+          if (value.employee.department == sel_department) {
+            if (value.day == sel_day) {
+              persons.push({
+                'id': value.employee.id,
+                'name': value.employee.fname,
+                'schedule_id': value.id,
+                'schedule_day': value.day
+              });
+            }
+          }
+        });
+
+        var unique_persons = _toConsumableArray(new Map(persons.map(function (item) {
+          return [item['id'], item];
+        })).values());
+
+        this.available_person = unique_persons;
+      },
+      deep: true
+    },
+    'appointment_form.visiting_person': {
+      handler: function handler(newVal, oldVal) {
+        var sel_person = newVal;
+        var schedules_data = this.schedules;
+        var available_per_sched = this.available_schedule;
+        var sel_year = this.appointment_form.selected_year;
+        var sel_schedule_id = '';
+        var sel_day = this.appointment_form.selected_day;
+        console.log(sel_person);
+        $.each(schedules_data, function (key, value) {
+          if (value.school_year == sel_year) {
+            if (value.day == sel_day) {
+              if (value.employee_id == sel_person) {
+                sel_schedule_id = value.id;
+              }
+            }
+          }
+        });
+        this.appointment_form.schedule_id = sel_schedule_id;
+      },
+      deep: true
+    },
+    'appointment_form.cough_check_no': {
+      handler: function handler(newVal, oldVal) {
+        if (newVal == true) {
+          // this.appointment_form.cough_check_no = 1
+          this.appointment_form.cough_check_yes = false;
+        }
+
+        if (newVal == false) {
+          this.appointment_form.cough_check_no = ""; // this.appointment_form.cough_check_yes = ""
+        }
+      },
+      deep: true
+    },
+    'appointment_form.cough_check_yes': {
+      handler: function handler(newVal, oldVal) {
+        if (newVal == true) {
+          // this.appointment_form.cough_check_yes = 1
+          this.appointment_form.cough_check_no = false;
+        }
+
+        if (newVal == false) {
+          this.appointment_form.cough_check_yes = ""; // this.appointment_form.cough_check_no = ""
+        }
+      },
+      deep: true
+    },
+    'appointment_form.shortness_check_no': {
+      handler: function handler(newVal, oldVal) {
+        if (newVal == true) {
+          this.appointment_form.shortness_check_yes = 0;
+        }
+      },
+      deep: true
+    },
+    'appointment_form.shortness_check_yes': {
+      handler: function handler(newVal, oldVal) {
+        if (newVal == true) {
+          this.appointment_form.shortness_check_no = 0;
+        }
+      },
+      deep: true
+    }
+  },
+  methods: {
+    getAllSchedules: function () {
+      var _getAllSchedules = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var response;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                this.$Progress.start();
-                _context.next = 4;
-                return _services_schedule_service__WEBPACK_IMPORTED_MODULE_0__["get_all_schedule"]();
+                _context.next = 3;
+                return _services_appointment_service__WEBPACK_IMPORTED_MODULE_0__["get_all_schedules"]();
 
-              case 4:
+              case 3:
                 response = _context.sent;
-                this.schedules_data = response.data;
-                _context.next = 10;
+                this.schedules = response.data;
+                _context.next = 9;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 7:
+                _context.prev = 7;
                 _context.t0 = _context["catch"](0);
 
-              case 10:
-                this.$Progress.finish();
-
-              case 11:
+              case 9:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 8]]);
+        }, _callee, this, [[0, 7]]);
       }));
 
-      function loadSchedules() {
-        return _loadSchedules.apply(this, arguments);
+      function getAllSchedules() {
+        return _getAllSchedules.apply(this, arguments);
       }
 
-      return loadSchedules;
+      return getAllSchedules;
     }(),
-    loadDays: function () {
-      var _loadDays = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    getAllAppointments: function () {
+      var _getAllAppointments = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var response;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.prev = 0;
-                this.$Progress.start();
-                _context2.next = 4;
-                return _services_schedule_service__WEBPACK_IMPORTED_MODULE_0__["get_all_days"]();
+                _context2.next = 3;
+                return _services_appointment_service__WEBPACK_IMPORTED_MODULE_0__["get_all_appointments"]();
 
-              case 4:
+              case 3:
                 response = _context2.sent;
-                this.days_data = response.data;
-                _context2.next = 10;
+                this.appointments_data = response.data;
+                _context2.next = 9;
                 break;
 
-              case 8:
-                _context2.prev = 8;
+              case 7:
+                _context2.prev = 7;
                 _context2.t0 = _context2["catch"](0);
 
-              case 10:
-                this.$Progress.finish();
-
-              case 11:
+              case 9:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[0, 8]]);
+        }, _callee2, this, [[0, 7]]);
       }));
 
-      function loadDays() {
-        return _loadDays.apply(this, arguments);
+      function getAllAppointments() {
+        return _getAllAppointments.apply(this, arguments);
       }
 
-      return loadDays;
+      return getAllAppointments;
     }(),
-    loadPage: function () {
-      var _loadPage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+    addAppointmentBtn: function addAppointmentBtn() {
+      this.$refs.addAppointmentMdl.show();
+    },
+    addAppointment: function () {
+      var _addAppointment = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var formData, response;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
+                _context3.prev = 0;
+                //   var current_page = this.guests_data.current_page;
+                this.$Progress.start();
+                formData = new FormData();
+                formData.append("cough_check_no", this.appointment_form.cough_check_no);
+                formData.append("cough_check_yes", this.appointment_form.cough_check_yes);
+                formData.append("shortness_check_no", this.appointment_form.shortness_check_no);
+                formData.append("shortness_check_yes", this.appointment_form.shortness_check_yes);
+                formData.append("appointment_date", this.appointment_form.appointment_date);
+                formData.append("department", this.appointment_form.department);
+                formData.append("visiting_person", this.appointment_form.visiting_person);
+                formData.append("selected_day", this.appointment_form.selected_day);
+                formData.append("schedule_id", this.appointment_form.schedule_id);
+                formData.append("selected_year", this.appointment_form.selected_year);
+                _context3.next = 15;
+                return _services_appointment_service__WEBPACK_IMPORTED_MODULE_0__["create_appointment"](formData);
+
+              case 15:
+                response = _context3.sent;
+                // this.loadPage(current_page);        
+                this.getAllSchedules();
+                this.$refs.addAppointmentMdl.hide();
+                Toast.fire({
+                  icon: "success",
+                  title: "Successfully added!"
+                });
+                _context3.next = 23;
+                break;
+
+              case 21:
+                _context3.prev = 21;
+                _context3.t0 = _context3["catch"](0);
+
+              case 23:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3);
+        }, _callee3, this, [[0, 21]]);
       }));
 
-      function loadPage() {
-        return _loadPage.apply(this, arguments);
+      function addAppointment() {
+        return _addAppointment.apply(this, arguments);
       }
 
-      return loadPage;
+      return addAppointment;
     }(),
-    addSchedule: function () {
-      var _addSchedule = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var schedules, input_schedule, ifScheduleExists, formData, response;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                schedules = this.schedules_data.data;
-                input_schedule = this.schudule_form;
-                ifScheduleExists = schedules.some(function (schedules) {
-                  return schedules.day == input_schedule.name_day && schedules.school_year == input_schedule.year;
-                });
+    showQrCode: function showQrCode(data) {
+      var appointment_data = _objectSpread({}, data);
 
-                if (!ifScheduleExists) {
-                  _context4.next = 7;
-                  break;
-                }
-
-                Toast.fire({
-                  icon: "error",
-                  title: "Schedule already included!"
-                });
-                _context4.next = 32;
-                break;
-
-              case 7:
-                _context4.prev = 7;
-                this.$Progress.start();
-                formData = new FormData();
-                formData.append("employee_id", this.$store.state.user_profile.employee.id);
-                formData.append("year", this.schudule_form.year);
-                formData.append("name_day", this.schudule_form.name_day);
-                _context4.next = 15;
-                return _services_schedule_service__WEBPACK_IMPORTED_MODULE_0__["create_schedule"](formData);
-
-              case 15:
-                response = _context4.sent;
-                this.loadSchedules();
-                this.$refs.addScheduleMdl.hide();
-                Toast.fire({
-                  icon: "success",
-                  title: "Schedule Successfully added!"
-                });
-                _context4.next = 32;
-                break;
-
-              case 21:
-                _context4.prev = 21;
-                _context4.t0 = _context4["catch"](7);
-                _context4.t1 = _context4.t0.response.status;
-                _context4.next = _context4.t1 === 422 ? 26 : 29;
-                break;
-
-              case 26:
-                this.errors = _context4.t0.response.data.errors;
-                Toast.fire({
-                  icon: "error",
-                  title: "Please check your Input form"
-                });
-                return _context4.abrupt("break", 31);
-
-              case 29:
-                Toast.fire({
-                  icon: "error",
-                  title: "Server error, Please try again!"
-                });
-                return _context4.abrupt("break", 31);
-
-              case 31:
-                this.$Progress.fail();
-
-              case 32:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, this, [[7, 21]]);
-      }));
-
-      function addSchedule() {
-        return _addSchedule.apply(this, arguments);
-      }
-
-      return addSchedule;
-    }(),
-    updateSchedule: function updateSchedule(data) {
-      var sel_schedule = _objectSpread({}, data);
-
-      var year = String(sel_schedule.school_year);
-      this.schudule_update_form = _objectSpread({}, data);
-      this.schudule_update_form.school_year = year;
-      this.$refs.updateScheduleMdl.show();
+      this.qrData = appointment_data.appointment_code;
+      this.$refs.qrCodeMdl.show();
     },
-    updateShechedule: function () {
-      var _updateShechedule = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        var current_page, formData, response;
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                _context5.prev = 0;
-                this.$Progress.start();
-                current_page = this.schedules_data.current_page;
-                formData = new FormData();
-                formData.append("day", this.schudule_update_form.day);
-                formData.append("school_year", this.schudule_update_form.school_year == null ? "" : this.schudule_update_form.school_year);
-                formData.append("_method", "put");
-                _context5.next = 9;
-                return _services_schedule_service__WEBPACK_IMPORTED_MODULE_0__["update_schedule"](this.schudule_update_form.id, formData);
-
-              case 9:
-                response = _context5.sent;
-                this.loadSchedules();
-                this.$refs.updateScheduleMdl.hide();
-                Toast.fire({
-                  icon: "success",
-                  title: "Updated successfully!"
-                });
-                _context5.next = 17;
-                break;
-
-              case 15:
-                _context5.prev = 15;
-                _context5.t0 = _context5["catch"](0);
-
-              case 17:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5, this, [[0, 15]]);
-      }));
-
-      function updateShechedule() {
-        return _updateShechedule.apply(this, arguments);
-      }
-
-      return updateShechedule;
-    }(),
-    deleteSchedule: function () {
-      var _deleteSchedule = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(id) {
-        var _this = this;
-
-        var current_page;
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                _context6.prev = 0;
-                current_page = this.schedules_data.current_page;
-                _context6.next = 4;
-                return Swal.fire({
-                  title: 'Are you sure?',
-                  text: "You won't be able to revert this!",
-                  icon: 'warning',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Yes, delete it!'
-                }).then(function (result) {
-                  if (result.isConfirmed) {
-                    _this.$Progress.start();
-
-                    _services_schedule_service__WEBPACK_IMPORTED_MODULE_0__["delete_schedule"](id);
-                    Toast.fire({
-                      icon: "success",
-                      title: "schedule successfully Deleted"
-                    }); // this.loadPage(current_page);   
-
-                    _this.loadSchedules();
-                  } else {
-                    Toast.fire({
-                      icon: "warning",
-                      title: "Delete Canceled"
-                    });
-                  }
-                });
-
-              case 4:
-                _context6.next = 9;
-                break;
-
-              case 6:
-                _context6.prev = 6;
-                _context6.t0 = _context6["catch"](0);
-                this.$Progress.finish();
-
-              case 9:
-              case "end":
-                return _context6.stop();
-            }
-          }
-        }, _callee6, this, [[0, 6]]);
-      }));
-
-      function deleteSchedule(_x) {
-        return _deleteSchedule.apply(this, arguments);
-      }
-
-      return deleteSchedule;
-    }()
+    hideQrMdl: function hideQrMdl() {
+      this.$refs.qrCodeMdl.hide();
+    }
   },
   mounted: function mounted() {
-    this.loadDays();
-    this.loadSchedules();
+    this.getAllSchedules();
+    this.getAllAppointments();
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/landing/Schedule.vue?vue&type=template&id=7af009a5&":
-/*!*******************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/landing/Schedule.vue?vue&type=template&id=7af009a5& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/landing/Appointment.vue?vue&type=template&id=92c499fe&":
+/*!**********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/landing/Appointment.vue?vue&type=template&id=92c499fe& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -373,112 +348,60 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("section", {
-    staticClass: "content"
-  }, [_c("div", {
+  return _c("div", [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "container-fluid"
   }, [_c("div", {
-    staticClass: "row"
+    staticClass: "row justify-content-md-center"
   }, [_c("div", {
-    staticClass: "col-12"
-  }, [_c("div", {
-    staticClass: "card"
-  }, [_c("div", {
-    staticClass: "card-header"
+    staticClass: "col-11"
   }, [_c("h3", {
-    staticClass: "card-title"
-  }, [_vm._v("Schedule for this Semester  "), _c("button", {
+    staticClass: "m-5"
+  }, [_vm._v("Appointments  "), _c("button", {
     staticClass: "btn btn-primary",
     attrs: {
       type: "button"
     },
     on: {
       click: function click($event) {
-        return _vm.addScheduleBtn();
+        return _vm.addAppointmentBtn();
       }
     }
   }, [_vm._v("Add "), _c("i", {
     staticClass: "fa-solid fa-plus"
   })])]), _vm._v(" "), _c("div", {
-    staticClass: "card-tools"
+    staticClass: "row justify-content-md-center"
   }, [_c("div", {
-    staticClass: "input-group input-group-sm",
-    staticStyle: {
-      width: "150px"
-    }
-  }, [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.search,
-      expression: "search"
-    }],
-    staticClass: "form-control float-right",
-    attrs: {
-      type: "text",
-      name: "table_search",
-      placeholder: "Search"
-    },
-    domProps: {
-      value: _vm.search
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.search = $event.target.value;
-      }
-    }
-  }), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c("div", {
-    staticClass: "card-body table-responsive p-0"
+    staticClass: "col-11"
+  }, [_c("div", {
+    staticClass: "card-body p-0"
   }, [_c("table", {
-    staticClass: "table table-hover text-nowrap"
-  }, [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.schedules_data.data, function (schedule, index) {
+    staticClass: "table"
+  }, [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.appointments_data.data, function (appointment, index) {
     return _c("tr", {
       key: index,
       staticStyle: {
         "text-align": "center"
       }
-    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(schedule.day))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(schedule.school_year))]), _vm._v(" "), _vm._m(2, true), _vm._v(" "), _c("td", [_c("button", {
-      staticClass: "btn btn-success",
+    }, [_c("td", [_vm._v(_vm._s(appointment.id))]), _vm._v(" "), _c("td", [_vm._v("2")]), _vm._v(" "), _c("th", [_vm._v(_vm._s(appointment.schedule.employee.department))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("upText")(appointment.schedule.employee.fname)) + " " + _vm._s(_vm._f("upText")(appointment.schedule.employee.mname)) + ". " + _vm._s(_vm._f("upText")(appointment.schedule.employee.lname)))]), _vm._v(" "), _c("th", [_vm._v("Date")]), _vm._v(" "), _c("th", [_vm._v("status here")]), _vm._v(" "), _c("th", [_c("b-button", {
+      staticClass: "mr-1",
       attrs: {
-        type: "button"
+        size: "sm",
+        variant: "primary"
       },
       on: {
         click: function click($event) {
-          return _vm.updateSchedule(schedule);
+          return _vm.showQrCode(appointment, index, $event.target);
         }
       }
-    }, [_vm._v("\n                                                Edit "), _c("i", {
-      staticClass: "fa-solid fa-pen-to-square"
-    })]), _vm._v(" "), _c("button", {
-      staticClass: "btn btn-danger",
-      attrs: {
-        type: "button"
-      },
-      on: {
-        click: function click($event) {
-          return _vm.deleteSchedule(schedule.id);
-        }
-      }
-    }, [_vm._v("\n                                                Delete "), _c("i", {
-      staticClass: "fa-solid fa-trash"
-    })])])]);
-  }), 0)])]), _vm._v(" "), _c("div", {
-    staticClass: "card-footer justify-content-md-center"
-  }, [_c("pagination", {
-    attrs: {
-      limit: 10,
-      data: _vm.schedules_data
-    },
-    on: {
-      "pagination-change-page": _vm.loadPage
-    }
-  })], 1)])])])])]), _vm._v(" "), _c("b-modal", {
-    ref: "addScheduleMdl",
+    }, [_c("i", {
+      staticClass: "fas fa-qrcode"
+    })])], 1), _vm._v(" "), _vm._m(2, true)]);
+  }), 0)])])])])])])]), _vm._v(" "), _c("b-modal", {
+    ref: "addAppointmentMdl",
     attrs: {
       size: "lg",
       "hide-footer": "",
-      title: "Scheduling Form"
+      title: "Appointment Form"
     }
   }, [_c("div", {
     staticClass: "d-block"
@@ -488,27 +411,269 @@ var render = function render() {
     on: {
       submit: function submit($event) {
         $event.preventDefault();
-        return _vm.addSchedule.apply(null, arguments);
+        return _vm.addAppointment.apply(null, arguments);
       }
     }
   }, [_c("div", {
     staticClass: "form-row"
   }, [_c("div", {
-    staticClass: "form-group col-md-6"
-  }, [_c("label", {
-    staticClass: "form-label",
+    staticClass: "h5 pb-2 mb-2 col-md-12 form-group text-primary border-bottom border-primary"
+  }, [_vm._v("\n                            COVID-19 Self Screening Questionnaire\n                        ")]), _vm._v(" "), _c("p", [_vm._v("\n                            You must answer “NO” to all the questions in this questionnaire in order to enter our physical location. If you answer “YES” to any of the questions, \n                            please DO NOT come enter the School buildings.\n                        ")]), _vm._v(" "), _c("p", {
+    staticClass: "mb-3"
+  }, [_vm._v("\n                            If you experience any symptoms or answer “YES” to any of these questions, you must immediately contact your health care professional\n                        ")]), _vm._v(" "), _c("div", {
+    staticClass: "card-body table-responsive p-0"
+  }, [_c("table", {
+    staticClass: "table table-hover text-nowrap"
+  }, [_c("thead", [_c("tr", [_c("th", {
+    staticStyle: {
+      "border-top": "none"
+    },
     attrs: {
-      "for": "selectpos"
+      scope: "col"
     }
-  }, [_vm._v("Day")]), _vm._v(" "), _c("select", {
+  }), _vm._v(" "), _c("th", {
+    staticStyle: {
+      "border-top": "none"
+    },
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("No")]), _vm._v(" "), _c("th", {
+    staticStyle: {
+      "border-top": "none"
+    },
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Yes")])])]), _vm._v(" "), _c("tbody", [_c("tr", [_c("td", {
+    staticStyle: {
+      "border-top": "none"
+    }
+  }, [_vm._v("1) Have you had any of the following symptoms in the last 24 hours? "), _c("span", {
+    staticStyle: {
+      color: "red"
+    }
+  }, [_vm._v("*")])]), _vm._v(" "), _c("td", {
+    staticStyle: {
+      "border-top": "none"
+    }
+  }), _vm._v(" "), _c("td", {
+    staticStyle: {
+      "border-top": "none"
+    }
+  })]), _vm._v(" "), _c("tr", [_c("td", {
+    staticStyle: {
+      "border-top": "none"
+    }
+  }, [_c("span", {
+    staticStyle: {
+      "margin-left": "5%"
+    }
+  }, [_vm._v("Cough")])]), _vm._v(" "), _c("td", {
+    staticStyle: {
+      "border-top": "none"
+    }
+  }, [_c("div", {
+    staticClass: "form-check"
+  }, [_c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.schudule_form.name_day,
-      expression: "schudule_form.name_day"
+      value: _vm.appointment_form.cough_check_no,
+      expression: "appointment_form.cough_check_no"
+    }],
+    staticClass: "form-check-input",
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.appointment_form.cough_check_no) ? _vm._i(_vm.appointment_form.cough_check_no, null) > -1 : _vm.appointment_form.cough_check_no
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.appointment_form.cough_check_no,
+            $$el = $event.target,
+            $$c = $$el.checked ? true : false;
+
+        if (Array.isArray($$a)) {
+          var $$v = null,
+              $$i = _vm._i($$a, $$v);
+
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.appointment_form, "cough_check_no", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.appointment_form, "cough_check_no", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.appointment_form, "cough_check_no", $$c);
+        }
+      }
+    }
+  })])]), _vm._v(" "), _c("td", {
+    staticStyle: {
+      "border-top": "none"
+    }
+  }, [_c("div", {
+    staticClass: "form-check"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.appointment_form.cough_check_yes,
+      expression: "appointment_form.cough_check_yes"
+    }],
+    staticClass: "form-check-input",
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.appointment_form.cough_check_yes) ? _vm._i(_vm.appointment_form.cough_check_yes, null) > -1 : _vm.appointment_form.cough_check_yes
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.appointment_form.cough_check_yes,
+            $$el = $event.target,
+            $$c = $$el.checked ? true : false;
+
+        if (Array.isArray($$a)) {
+          var $$v = null,
+              $$i = _vm._i($$a, $$v);
+
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.appointment_form, "cough_check_yes", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.appointment_form, "cough_check_yes", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.appointment_form, "cough_check_yes", $$c);
+        }
+      }
+    }
+  })])])]), _vm._v(" "), _c("tr", [_c("td", {
+    staticStyle: {
+      "border-top": "none"
+    }
+  }, [_c("span", {
+    staticStyle: {
+      "margin-left": "5%"
+    }
+  }, [_vm._v(" Shortness of breath of difficulty breathing")])]), _vm._v(" "), _c("td", {
+    staticStyle: {
+      "border-top": "none"
+    }
+  }, [_c("div", {
+    staticClass: "form-check"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.appointment_form.shortness_check_no,
+      expression: "appointment_form.shortness_check_no"
+    }],
+    staticClass: "form-check-input",
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.appointment_form.shortness_check_no) ? _vm._i(_vm.appointment_form.shortness_check_no, null) > -1 : _vm.appointment_form.shortness_check_no
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.appointment_form.shortness_check_no,
+            $$el = $event.target,
+            $$c = $$el.checked ? true : false;
+
+        if (Array.isArray($$a)) {
+          var $$v = null,
+              $$i = _vm._i($$a, $$v);
+
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.appointment_form, "shortness_check_no", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.appointment_form, "shortness_check_no", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.appointment_form, "shortness_check_no", $$c);
+        }
+      }
+    }
+  })])]), _vm._v(" "), _c("td", {
+    staticStyle: {
+      "border-top": "none"
+    }
+  }, [_c("div", {
+    staticClass: "form-check"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.appointment_form.shortness_check_yes,
+      expression: "appointment_form.shortness_check_yes"
+    }],
+    staticClass: "form-check-input",
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.appointment_form.shortness_check_yes) ? _vm._i(_vm.appointment_form.shortness_check_yes, null) > -1 : _vm.appointment_form.shortness_check_yes
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.appointment_form.shortness_check_yes,
+            $$el = $event.target,
+            $$c = $$el.checked ? true : false;
+
+        if (Array.isArray($$a)) {
+          var $$v = null,
+              $$i = _vm._i($$a, $$v);
+
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.appointment_form, "shortness_check_yes", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.appointment_form, "shortness_check_yes", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.appointment_form, "shortness_check_yes", $$c);
+        }
+      }
+    }
+  })])])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "h5 pb-2 mb-2 col-md-12 form-group text-primary border-bottom border-primary"
+  }, [_vm._v("\n                            Appointment\n                        ")]), _vm._v(" "), _c("label", {
+    staticClass: "col-sm-3 col-form-label",
+    attrs: {
+      "for": "inputEmail3"
+    }
+  }, [_vm._v("Date")]), _vm._v(" "), _c("div", {
+    staticClass: "col-sm-9 mb-2"
+  }, [_c("b-form-datepicker", {
+    staticClass: "form-control",
+    model: {
+      value: _vm.appointment_form.appointment_date,
+      callback: function callback($$v) {
+        _vm.$set(_vm.appointment_form, "appointment_date", $$v);
+      },
+      expression: "appointment_form.appointment_date"
+    }
+  })], 1), _vm._v(" "), _c("label", {
+    staticClass: "col-sm-3 col-form-label",
+    attrs: {
+      "for": "inputEmail3"
+    }
+  }, [_vm._v("Department")]), _vm._v(" "), _c("div", {
+    staticClass: "col-sm-9 mb-2"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.appointment_form.department,
+      expression: "appointment_form.department"
     }],
     staticClass: "custom-select",
-    "class": _vm.errors.name_days ? "is-invalid" : "",
+    "class": _vm.errors.department ? "is-invalid" : "",
+    attrs: {
+      id: "selectpos"
+    },
     on: {
       change: function change($event) {
         var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
@@ -518,158 +683,124 @@ var render = function render() {
           return val;
         });
 
-        _vm.$set(_vm.schudule_form, "name_day", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        _vm.$set(_vm.appointment_form, "department", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }
     }
   }, [_c("option", {
     attrs: {
-      selected: "",
       value: "",
       disabled: ""
     }
-  }, [_vm._v("Select day")]), _vm._v(" "), _vm._l(_vm.days_data, function (day, index) {
+  }, [_vm._v("Select Department")]), _vm._v(" "), _vm._l(_vm.available_department, function (department, index) {
     return _c("option", {
       key: index,
       domProps: {
-        value: day.name_day
+        value: department
       }
-    }, [_vm._v(_vm._s(day.name_day))]);
-  })], 2), _vm._v(" "), _vm.errors.name_days ? _c("div", {
+    }, [_vm._v(_vm._s(department))]);
+  })], 2), _vm._v(" "), _vm.errors.department ? _c("div", {
     staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.name_days[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-6"
-  }, [_c("label", {
-    staticClass: "form-label",
+  }, [_vm._v(_vm._s(_vm.errors.department[0]))]) : _vm._e()]), _vm._v(" "), _c("label", {
+    staticClass: "col-sm-3 col-form-label",
     attrs: {
-      "for": "exampleInputEmail1"
+      "for": "inputEmail3"
     }
-  }, [_vm._v("School Year")]), _vm._v(" "), _c("date-picker", {
-    "class": _vm.errors.year ? "is-invalid" : "",
+  }, [_vm._v("Person to meet")]), _vm._v(" "), _c("div", {
+    staticClass: "col-sm-9 mb-2"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.appointment_form.visiting_person,
+      expression: "appointment_form.visiting_person"
+    }],
+    staticClass: "custom-select",
+    "class": _vm.errors.department ? "is-invalid" : "",
     attrs: {
-      config: _vm.options,
-      placeholder: "Select School year"
+      id: "selectpos"
     },
-    model: {
-      value: _vm.schudule_form.year,
-      callback: function callback($$v) {
-        _vm.$set(_vm.schudule_form, "year", $$v);
-      },
-      expression: "schudule_form.year"
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+
+        _vm.$set(_vm.appointment_form, "visiting_person", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
     }
-  }), _vm._v(" "), _vm.errors.year ? _c("div", {
+  }, [_c("option", {
+    attrs: {
+      value: "",
+      disabled: ""
+    }
+  }, [_vm._v("Select Person")]), _vm._v(" "), _vm._l(_vm.available_person, function (person, index) {
+    return _c("option", {
+      key: index,
+      domProps: {
+        value: person.id
+      }
+    }, [_vm._v(_vm._s(person.name))]);
+  })], 2), _vm._v(" "), _vm.errors.department ? _c("div", {
     staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.year[0]))]) : _vm._e()], 1), _vm._v(" "), _c("button", {
+  }, [_vm._v(_vm._s(_vm.errors.department[0]))]) : _vm._e()]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-primary col-12",
     attrs: {
       type: "submit"
     }
   }, [_vm._v("Submit")])])])])])]), _vm._v(" "), _c("b-modal", {
-    ref: "updateScheduleMdl",
+    ref: "qrCodeMdl",
     attrs: {
-      size: "lg",
+      centered: "",
+      size: "md",
       "hide-footer": "",
-      title: "Scheduling update Form"
+      title: "QR Code"
     }
   }, [_c("div", {
     staticClass: "d-block"
   }, [_c("div", {
-    staticClass: "container-fluid"
-  }, [_c("form", {
-    on: {
-      submit: function submit($event) {
-        $event.preventDefault();
-        return _vm.updateShechedule.apply(null, arguments);
-      }
-    }
-  }, [_c("div", {
-    staticClass: "form-row"
-  }, [_c("div", {
-    staticClass: "form-group col-md-6"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "selectpos"
-    }
-  }, [_vm._v("Day")]), _vm._v(" "), _c("select", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.schudule_update_form.day,
-      expression: "schudule_update_form.day"
-    }],
-    staticClass: "custom-select",
-    "class": _vm.errors.day_id ? "is-invalid" : "",
-    on: {
-      change: function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-
-        _vm.$set(_vm.schudule_update_form, "day", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c("option", {
-    attrs: {
-      selected: "",
-      value: "",
-      disabled: ""
-    }
-  }, [_vm._v("Select day")]), _vm._v(" "), _vm._l(_vm.days_data, function (day, index) {
-    return _c("option", {
-      key: index,
-      domProps: {
-        value: day.name_day
-      }
-    }, [_vm._v(_vm._s(day.name_day))]);
-  })], 2), _vm._v(" "), _vm.errors.day_id ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.day_id[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-6"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("School Year")]), _vm._v(" "), _c("date-picker", {
-    "class": _vm.errors.school_year ? "is-invalid" : "",
-    attrs: {
-      config: _vm.options,
-      placeholder: "Select School year"
+    staticClass: "row col mb-2 justify-content-center qrcode"
+  }, [_c("qr-code", {
+    ref: "printcontent",
+    staticStyle: {
+      cursor: "pointer",
+      width: "50%",
+      "margin-left": "auto",
+      "margin-right": "auto"
     },
-    model: {
-      value: _vm.schudule_update_form.school_year,
-      callback: function callback($$v) {
-        _vm.$set(_vm.schudule_update_form, "school_year", $$v);
-      },
-      expression: "schudule_update_form.school_year"
-    }
-  }), _vm._v(" "), _vm.errors.school_year ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.school_year[0]))]) : _vm._e()], 1), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-primary col-12",
     attrs: {
-      type: "submit"
+      text: _vm.qrData
     }
-  }, [_vm._v("Submit")])])])])])])], 1);
+  })], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "text-right"
+  }, [_c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.hideQrMdl
+    }
+  }, [_vm._v("\n                Cancel\n            ")])])])], 1);
 };
 
 var staticRenderFns = [function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", {
-    staticClass: "input-group-append"
-  }, [_c("button", {
-    staticClass: "btn btn-default",
-    attrs: {
-      type: "submit"
-    }
-  }, [_c("i", {
-    staticClass: "fas fa-search"
-  })])]);
+  return _c("header", {
+    staticClass: "py-5 bg-light border-bottom mb-4"
+  }, [_c("div", {
+    staticClass: "container"
+  }, [_c("div", {
+    staticClass: "text-center my-5"
+  }, [_c("h1", {
+    staticClass: "fw-bolder"
+  }, [_vm._v("Appointment")]), _vm._v(" "), _c("p", {
+    staticClass: "lead mb-0"
+  })])])]);
 }, function () {
   var _vm = this,
       _c = _vm._self._c;
@@ -678,36 +809,43 @@ var staticRenderFns = [function () {
     staticStyle: {
       "text-align": "center"
     }
-  }, [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Day")]), _vm._v(" "), _c("th", [_vm._v("School Year")]), _vm._v(" "), _c("th", [_vm._v("Appointments")]), _vm._v(" "), _c("th", [_vm._v("Action")])])]);
+  }, [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Schedule")]), _vm._v(" "), _c("th", [_vm._v("Department")]), _vm._v(" "), _c("th", [_vm._v("Visiting")]), _vm._v(" "), _c("th", [_vm._v("Date")]), _vm._v(" "), _c("th", [_vm._v("Status")]), _vm._v(" "), _c("th", [_vm._v("QR code")]), _vm._v(" "), _c("th", [_vm._v("Action")])])]);
 }, function () {
   var _vm = this,
       _c = _vm._self._c;
 
   return _c("td", [_c("button", {
-    staticClass: "btn btn-primary",
+    staticClass: "btn btn-success",
     attrs: {
       type: "button"
     }
-  }, [_vm._v("\n                                                Appointments "), _c("span", {
-    staticClass: "badge text-bg-secondary"
-  }, [_vm._v("4")])])]);
+  }, [_vm._v("\n                                                    Edit "), _c("i", {
+    staticClass: "fa-solid fa-pen-to-square"
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-danger",
+    attrs: {
+      type: "button"
+    }
+  }, [_vm._v("\n                                                    Delete "), _c("i", {
+    staticClass: "fa-solid fa-trash"
+  })])]);
 }];
 render._withStripped = true;
 
 
 /***/ }),
 
-/***/ "./resources/js/components/pages/landing/Schedule.vue":
-/*!************************************************************!*\
-  !*** ./resources/js/components/pages/landing/Schedule.vue ***!
-  \************************************************************/
+/***/ "./resources/js/components/pages/landing/Appointment.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/pages/landing/Appointment.vue ***!
+  \***************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Schedule_vue_vue_type_template_id_7af009a5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Schedule.vue?vue&type=template&id=7af009a5& */ "./resources/js/components/pages/landing/Schedule.vue?vue&type=template&id=7af009a5&");
-/* harmony import */ var _Schedule_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Schedule.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/landing/Schedule.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Appointment_vue_vue_type_template_id_92c499fe___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Appointment.vue?vue&type=template&id=92c499fe& */ "./resources/js/components/pages/landing/Appointment.vue?vue&type=template&id=92c499fe&");
+/* harmony import */ var _Appointment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Appointment.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/landing/Appointment.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -717,9 +855,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Schedule_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Schedule_vue_vue_type_template_id_7af009a5___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Schedule_vue_vue_type_template_id_7af009a5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Appointment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Appointment_vue_vue_type_template_id_92c499fe___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Appointment_vue_vue_type_template_id_92c499fe___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -729,74 +867,74 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/pages/landing/Schedule.vue"
+component.options.__file = "resources/js/components/pages/landing/Appointment.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/pages/landing/Schedule.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/pages/landing/Schedule.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/components/pages/landing/Appointment.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/pages/landing/Appointment.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Schedule_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Schedule.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/landing/Schedule.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Schedule_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Appointment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Appointment.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/landing/Appointment.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Appointment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/pages/landing/Schedule.vue?vue&type=template&id=7af009a5&":
-/*!*******************************************************************************************!*\
-  !*** ./resources/js/components/pages/landing/Schedule.vue?vue&type=template&id=7af009a5& ***!
-  \*******************************************************************************************/
+/***/ "./resources/js/components/pages/landing/Appointment.vue?vue&type=template&id=92c499fe&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/pages/landing/Appointment.vue?vue&type=template&id=92c499fe& ***!
+  \**********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Schedule_vue_vue_type_template_id_7af009a5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Schedule.vue?vue&type=template&id=7af009a5& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/landing/Schedule.vue?vue&type=template&id=7af009a5&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Schedule_vue_vue_type_template_id_7af009a5___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Appointment_vue_vue_type_template_id_92c499fe___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Appointment.vue?vue&type=template&id=92c499fe& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/landing/Appointment.vue?vue&type=template&id=92c499fe&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Appointment_vue_vue_type_template_id_92c499fe___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Schedule_vue_vue_type_template_id_7af009a5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Appointment_vue_vue_type_template_id_92c499fe___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/services/schedule_service.js":
-/*!***************************************************!*\
-  !*** ./resources/js/services/schedule_service.js ***!
-  \***************************************************/
-/*! exports provided: get_all_schedule, get_all_days, create_schedule, update_schedule, delete_schedule */
+/***/ "./resources/js/services/appointment_service.js":
+/*!******************************************************!*\
+  !*** ./resources/js/services/appointment_service.js ***!
+  \******************************************************/
+/*! exports provided: get_all_schedules, get_all_appointments, create_appointment */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_all_schedule", function() { return get_all_schedule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_all_days", function() { return get_all_days; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create_schedule", function() { return create_schedule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update_schedule", function() { return update_schedule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "delete_schedule", function() { return delete_schedule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_all_schedules", function() { return get_all_schedules; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_all_appointments", function() { return get_all_appointments; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create_appointment", function() { return create_appointment; });
 /* harmony import */ var _http_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./http_service */ "./resources/js/services/http_service.js");
 
-function get_all_schedule() {
-  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["http"])().get('/schedule');
+function get_all_schedules() {
+  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["http"])().get('/get-all-schedules');
 }
-function get_all_days() {
-  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["http"])().get('/get-all-days');
+function get_all_appointments() {
+  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["http"])().get('/appointment');
 }
-function create_schedule(data) {
-  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["httpFile"])().post('/schedule', data);
-}
-function update_schedule(id, data) {
-  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["httpFile"])().post("schedule/".concat(id), data);
-}
-function delete_schedule(id) {
-  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["http"])()["delete"]("schedule/".concat(id));
-}
+function create_appointment(data) {
+  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["httpFile"])().post('/appointment', data);
+} // export function update_guest(id, data){
+//     return httpFile().post(`guest/${id}`, data);
+// }
+// export function delete_guest(id){
+//     return http().delete(`guest/${id}`);
+// }
+// export function guest_page(page){
+//     return httpFile().get('/guest?page=' + page)
+// }
 
 /***/ })
 

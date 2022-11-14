@@ -19,6 +19,10 @@ class Schedule extends Model
         return $this->belongsTo('App\Employee', 'employee_id', 'id');
     }
 
+    public function appointments(){
+        return $this->hasMany('App\Appointment', 'schedule_id', 'id');
+    }
+
     // public function day(){
     //     return $this->hasOne('App\Day', 'schedule_id', 'id');
     // }

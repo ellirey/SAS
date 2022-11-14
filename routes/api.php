@@ -41,7 +41,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 
 
-// Route::resource('employee', 'EmployeeController');
+Route::resource('appointment', 'AppointmentController');
+Route::get('/get-all-schedules', 'AppointmentController@getAllSchedules');
 // Route::resource('student', 'StudentController');
 // Route::resource('guest', 'GuestController');
 

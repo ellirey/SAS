@@ -51,6 +51,11 @@ Vue.filter('upText', function(text){
 import datePicker from 'vue-bootstrap-datetimepicker';
 import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
 
+
+import VueQRCodeComponent from 'vue-qr-generator'
+Vue.component('qr-code', VueQRCodeComponent)
+
+
 Vue.use(datePicker)
 
 new Vue({

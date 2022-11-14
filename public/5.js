@@ -1,15 +1,15 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/admin/Guest.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/admin/Guest.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/admin/Schedule.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/admin/Schedule.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _services_guest_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../services/guest_service */ "./resources/js/services/guest_service.js");
+/* harmony import */ var _services_schedule_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../services/schedule_service */ "./resources/js/services/schedule_service.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -28,33 +28,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      schedules_data: {},
       search: '',
       errors: '',
-      guest_form: {
-        username: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-        fname: '',
-        mname: '',
-        lname: '',
-        gender: '',
-        age: '',
-        birthday: '',
-        occupation: ''
-      },
-      guest_update_form: {},
-      guests_data: {},
       page: 1,
-      nextPage: 0
+      nextPage: 0,
+      schudule_form: {
+        year: "",
+        name_day: "",
+        day_id: ""
+      },
+      schudule_update_form: {},
+      options: {
+        format: 'YYYY',
+        useCurrent: false
+      },
+      dates: "2022",
+      days_data: {}
     };
   },
   methods: {
-    showMdlAddGuestBtn: function showMdlAddGuestBtn() {
-      this.$refs.addGuestMdl.show();
+    addScheduleBtn: function addScheduleBtn() {
+      this.$refs.addScheduleMdl.show();
     },
-    loadGuests: function () {
-      var _loadGuests = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    loadSchedules: function () {
+      var _loadSchedules = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var response;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
@@ -63,11 +61,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.prev = 0;
                 this.$Progress.start();
                 _context.next = 4;
-                return _services_guest_service__WEBPACK_IMPORTED_MODULE_0__["get_all_guests"]();
+                return _services_schedule_service__WEBPACK_IMPORTED_MODULE_0__["get_all_schedule"]();
 
               case 4:
                 response = _context.sent;
-                this.guests_data = response.data;
+                this.schedules_data = response.data;
                 _context.next = 10;
                 break;
 
@@ -86,69 +84,62 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, this, [[0, 8]]);
       }));
 
-      function loadGuests() {
-        return _loadGuests.apply(this, arguments);
+      function loadSchedules() {
+        return _loadSchedules.apply(this, arguments);
       }
 
-      return loadGuests;
+      return loadSchedules;
     }(),
-    loadPage: function () {
-      var _loadPage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var page,
-            searchQuery,
-            searchPage,
-            response,
-            _args2 = arguments;
+    loadDays: function () {
+      var _loadDays = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var response;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                page = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : 1;
+                _context2.prev = 0;
                 this.$Progress.start();
-                searchQuery = this.search;
-                searchPage = 0;
+                _context2.next = 4;
+                return _services_schedule_service__WEBPACK_IMPORTED_MODULE_0__["get_all_days"]();
 
-                if (!(searchQuery == "")) {
-                  _context2.next = 19;
-                  break;
-                }
-
-                _context2.prev = 5;
-                _context2.next = 8;
-                return _services_guest_service__WEBPACK_IMPORTED_MODULE_0__["guest_page"](page);
+              case 4:
+                response = _context2.sent;
+                this.days_data = response.data;
+                _context2.next = 10;
+                break;
 
               case 8:
-                response = _context2.sent;
-                this.guests_data = response.data;
-                this.$Progress.finish();
-                _context2.next = 16;
-                break;
+                _context2.prev = 8;
+                _context2.t0 = _context2["catch"](0);
 
-              case 13:
-                _context2.prev = 13;
-                _context2.t0 = _context2["catch"](5);
-                this.$Progress.fail();
-
-              case 16:
-                this.$Progress.finish();
-                _context2.next = 21;
-                break;
-
-              case 19:
-                try {// const response = await praiseService.praise_search_page(page, searchQuery)
-                  // this.praise_datas = response.data
-                } catch (e) {
-                  this.$Progress.fail();
-                }
-
+              case 10:
                 this.$Progress.finish();
 
-              case 21:
+              case 11:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[5, 13]]);
+        }, _callee2, this, [[0, 8]]);
+      }));
+
+      function loadDays() {
+        return _loadDays.apply(this, arguments);
+      }
+
+      return loadDays;
+    }(),
+    loadPage: function () {
+      var _loadPage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }));
 
       function loadPage() {
@@ -157,177 +148,157 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return loadPage;
     }(),
-    addGuest: function () {
-      var _addGuest = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var current_page, formData, response;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.prev = 0;
-                current_page = this.guests_data.current_page;
-                this.$Progress.start();
-                formData = new FormData();
-                formData.append("username", this.guest_form.username);
-                formData.append("email", this.guest_form.email);
-                formData.append("password", this.guest_form.password);
-                formData.append("password_confirmation", this.guest_form.password_confirmation);
-                formData.append("fname", this.guest_form.fname);
-                formData.append("mname", this.guest_form.mname);
-                formData.append("lname", this.guest_form.lname);
-                formData.append("gender", this.guest_form.gender);
-                formData.append("age", this.guest_form.age);
-                formData.append("birthday", this.guest_form.birthday);
-                formData.append("occupation", this.guest_form.occupation);
-                _context3.next = 17;
-                return _services_guest_service__WEBPACK_IMPORTED_MODULE_0__["create_guest"](formData);
-
-              case 17:
-                response = _context3.sent;
-                this.loadPage(current_page);
-                this.$refs.addGuestMdl.hide();
-                Toast.fire({
-                  icon: "success",
-                  title: "Successfully added!"
-                });
-                _context3.next = 34;
-                break;
-
-              case 23:
-                _context3.prev = 23;
-                _context3.t0 = _context3["catch"](0);
-                _context3.t1 = _context3.t0.response.status;
-                _context3.next = _context3.t1 === 422 ? 28 : 31;
-                break;
-
-              case 28:
-                this.errors = _context3.t0.response.data.errors;
-                Toast.fire({
-                  icon: "error",
-                  title: "Please check your Input form"
-                });
-                return _context3.abrupt("break", 33);
-
-              case 31:
-                Toast.fire({
-                  icon: "error",
-                  title: "Server error, Please try again!"
-                });
-                return _context3.abrupt("break", 33);
-
-              case 33:
-                this.$Progress.fail();
-
-              case 34:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this, [[0, 23]]);
-      }));
-
-      function addGuest() {
-        return _addGuest.apply(this, arguments);
-      }
-
-      return addGuest;
-    }(),
-    updateGuestBtn: function updateGuestBtn(data) {
-      this.guest_update_form = _objectSpread({}, data);
-      this.$refs.updateGuestMdl.show();
-    },
-    updateGuest: function () {
-      var _updateGuest = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var current_page, formData, response;
+    addSchedule: function () {
+      var _addSchedule = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var schedules, input_schedule, ifScheduleExists, formData, response;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _context4.prev = 0;
-                current_page = this.guests_data.current_page;
+                schedules = this.schedules_data.data;
+                input_schedule = this.schudule_form;
+                ifScheduleExists = schedules.some(function (schedules) {
+                  return schedules.day == input_schedule.name_day && schedules.school_year == input_schedule.year;
+                });
+
+                if (!ifScheduleExists) {
+                  _context4.next = 7;
+                  break;
+                }
+
+                Toast.fire({
+                  icon: "error",
+                  title: "Schedule already included!"
+                });
+                _context4.next = 32;
+                break;
+
+              case 7:
+                _context4.prev = 7;
                 this.$Progress.start();
                 formData = new FormData();
-                formData.append("user_id", this.guest_update_form.user.id);
-                formData.append("username", this.guest_update_form.user.username);
-                formData.append("email", this.guest_update_form.user.email);
-                formData.append("password", this.guest_update_form.user.password);
-                formData.append("password_confirmation", this.guest_update_form.user.password_confirmation);
-                formData.append("fname", this.guest_update_form.fname);
-                formData.append("mname", this.guest_update_form.mname);
-                formData.append("lname", this.guest_update_form.lname);
-                formData.append("gender", this.guest_update_form.gender);
-                formData.append("age", this.guest_update_form.age);
-                formData.append("birthday", this.guest_update_form.birthday);
-                formData.append("occupation", this.guest_update_form.occupation);
-                formData.append("_method", "put");
-                _context4.next = 19;
-                return _services_guest_service__WEBPACK_IMPORTED_MODULE_0__["update_guest"](this.guest_update_form.id, formData);
+                formData.append("employee_id", this.$store.state.user_profile.employee.id);
+                formData.append("year", this.schudule_form.year);
+                formData.append("name_day", this.schudule_form.name_day);
+                _context4.next = 15;
+                return _services_schedule_service__WEBPACK_IMPORTED_MODULE_0__["create_schedule"](formData);
 
-              case 19:
+              case 15:
                 response = _context4.sent;
-                this.loadPage(current_page);
-                this.$refs.updateGuestMdl.hide();
+                this.loadSchedules();
+                this.$refs.addScheduleMdl.hide();
                 Toast.fire({
                   icon: "success",
-                  title: "Updated successfully!"
+                  title: "Schedule Successfully added!"
                 });
-                _context4.next = 36;
+                _context4.next = 32;
                 break;
 
-              case 25:
-                _context4.prev = 25;
-                _context4.t0 = _context4["catch"](0);
+              case 21:
+                _context4.prev = 21;
+                _context4.t0 = _context4["catch"](7);
                 _context4.t1 = _context4.t0.response.status;
-                _context4.next = _context4.t1 === 422 ? 30 : 33;
+                _context4.next = _context4.t1 === 422 ? 26 : 29;
                 break;
 
-              case 30:
+              case 26:
                 this.errors = _context4.t0.response.data.errors;
                 Toast.fire({
                   icon: "error",
                   title: "Please check your Input form"
                 });
-                return _context4.abrupt("break", 35);
+                return _context4.abrupt("break", 31);
 
-              case 33:
+              case 29:
                 Toast.fire({
                   icon: "error",
                   title: "Server error, Please try again!"
                 });
-                return _context4.abrupt("break", 35);
+                return _context4.abrupt("break", 31);
 
-              case 35:
+              case 31:
                 this.$Progress.fail();
 
-              case 36:
-                this.$Progress.finish();
-
-              case 37:
+              case 32:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, this, [[0, 25]]);
+        }, _callee4, this, [[7, 21]]);
       }));
 
-      function updateGuest() {
-        return _updateGuest.apply(this, arguments);
+      function addSchedule() {
+        return _addSchedule.apply(this, arguments);
       }
 
-      return updateGuest;
+      return addSchedule;
     }(),
-    deleteGuestBtn: function () {
-      var _deleteGuestBtn = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(id) {
-        var _this = this;
+    updateSchedule: function updateSchedule(data) {
+      var sel_schedule = _objectSpread({}, data);
 
-        var current_page;
+      var year = String(sel_schedule.school_year);
+      this.schudule_update_form = _objectSpread({}, data);
+      this.schudule_update_form.school_year = year;
+      this.$refs.updateScheduleMdl.show();
+    },
+    updateShechedule: function () {
+      var _updateShechedule = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        var current_page, formData, response;
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.prev = 0;
-                current_page = this.guests_data.current_page;
-                _context5.next = 4;
+                this.$Progress.start();
+                current_page = this.schedules_data.current_page;
+                formData = new FormData();
+                formData.append("day", this.schudule_update_form.day);
+                formData.append("school_year", this.schudule_update_form.school_year == null ? "" : this.schudule_update_form.school_year);
+                formData.append("_method", "put");
+                _context5.next = 9;
+                return _services_schedule_service__WEBPACK_IMPORTED_MODULE_0__["update_schedule"](this.schudule_update_form.id, formData);
+
+              case 9:
+                response = _context5.sent;
+                this.loadSchedules();
+                this.$refs.updateScheduleMdl.hide();
+                Toast.fire({
+                  icon: "success",
+                  title: "Updated successfully!"
+                });
+                _context5.next = 17;
+                break;
+
+              case 15:
+                _context5.prev = 15;
+                _context5.t0 = _context5["catch"](0);
+
+              case 17:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this, [[0, 15]]);
+      }));
+
+      function updateShechedule() {
+        return _updateShechedule.apply(this, arguments);
+      }
+
+      return updateShechedule;
+    }(),
+    deleteSchedule: function () {
+      var _deleteSchedule = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(id) {
+        var _this = this;
+
+        var current_page;
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.prev = 0;
+                current_page = this.schedules_data.current_page;
+                _context6.next = 4;
                 return Swal.fire({
                   title: 'Are you sure?',
                   text: "You won't be able to revert this!",
@@ -340,58 +311,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   if (result.isConfirmed) {
                     _this.$Progress.start();
 
-                    _services_guest_service__WEBPACK_IMPORTED_MODULE_0__["delete_guest"](id);
+                    _services_schedule_service__WEBPACK_IMPORTED_MODULE_0__["delete_schedule"](id);
                     Toast.fire({
                       icon: "success",
-                      title: "Guest successfully Deleted"
-                    });
+                      title: "schedule successfully Deleted"
+                    }); // this.loadPage(current_page);   
 
-                    _this.loadPage(current_page);
+                    _this.loadSchedules();
                   } else {
                     Toast.fire({
                       icon: "warning",
                       title: "Delete Canceled"
                     });
-
-                    _this.loadPage(current_page);
                   }
                 });
 
               case 4:
-                _context5.next = 9;
+                _context6.next = 9;
                 break;
 
               case 6:
-                _context5.prev = 6;
-                _context5.t0 = _context5["catch"](0);
+                _context6.prev = 6;
+                _context6.t0 = _context6["catch"](0);
                 this.$Progress.finish();
 
               case 9:
               case "end":
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5, this, [[0, 6]]);
+        }, _callee6, this, [[0, 6]]);
       }));
 
-      function deleteGuestBtn(_x) {
-        return _deleteGuestBtn.apply(this, arguments);
+      function deleteSchedule(_x) {
+        return _deleteSchedule.apply(this, arguments);
       }
 
-      return deleteGuestBtn;
+      return deleteSchedule;
     }()
   },
   mounted: function mounted() {
-    this.loadGuests();
+    this.loadDays();
+    this.loadSchedules();
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/admin/Guest.vue?vue&type=template&id=787c181c&":
-/*!**************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/admin/Guest.vue?vue&type=template&id=787c181c& ***!
-  \**************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/admin/Schedule.vue?vue&type=template&id=489f1aed&":
+/*!*****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/admin/Schedule.vue?vue&type=template&id=489f1aed& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -413,16 +383,16 @@ var render = function render() {
     staticClass: "row mb-2"
   }, [_c("div", {
     staticClass: "col-sm-6"
-  }, [_c("h1", {
-    staticClass: "m-0"
-  }, [_vm._v("Guest "), _c("button", {
+  }, [_c("h3", {
+    staticClass: "card-title"
+  }, [_vm._v("Schedule for this Semester  "), _c("button", {
     staticClass: "btn btn-primary",
     attrs: {
       type: "button"
     },
     on: {
       click: function click($event) {
-        return _vm.showMdlAddGuestBtn();
+        return _vm.addScheduleBtn();
       }
     }
   }, [_vm._v("Add "), _c("i", {
@@ -441,7 +411,7 @@ var render = function render() {
     staticClass: "card-header"
   }, [_c("h3", {
     staticClass: "card-title"
-  }, [_vm._v("List of Guests")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("List of Students")]), _vm._v(" "), _c("div", {
     staticClass: "card-tools"
   }, [_c("div", {
     staticClass: "input-group input-group-sm",
@@ -474,20 +444,20 @@ var render = function render() {
     staticClass: "card-body table-responsive p-0"
   }, [_c("table", {
     staticClass: "table table-hover text-nowrap"
-  }, [_vm._m(2), _vm._v(" "), _c("tbody", _vm._l(_vm.guests_data.data, function (guest, index) {
+  }, [_vm._m(2), _vm._v(" "), _c("tbody", _vm._l(_vm.schedules_data.data, function (schedule, index) {
     return _c("tr", {
       key: index,
       staticStyle: {
         "text-align": "center"
       }
-    }, [_c("td", [_vm._v(_vm._s(guest.guest_code))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("upText")(guest.fname)) + " " + _vm._s(_vm._f("upText")(guest.mname)) + ". " + _vm._s(_vm._f("upText")(guest.lname)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(guest.occupation))]), _vm._v(" "), _c("td", [_c("button", {
+    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(schedule.day))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(schedule.school_year))]), _vm._v(" "), _vm._m(3, true), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-success",
       attrs: {
         type: "button"
       },
       on: {
         click: function click($event) {
-          return _vm.updateGuestBtn(guest);
+          return _vm.updateSchedule(schedule);
         }
       }
     }, [_vm._v("\n                                                Edit "), _c("i", {
@@ -499,7 +469,7 @@ var render = function render() {
       },
       on: {
         click: function click($event) {
-          return _vm.deleteGuestBtn(guest.id);
+          return _vm.deleteSchedule(schedule.id);
         }
       }
     }, [_vm._v("\n                                                Delete "), _c("i", {
@@ -510,17 +480,17 @@ var render = function render() {
   }, [_c("pagination", {
     attrs: {
       limit: 10,
-      data: _vm.guests_data
+      data: _vm.schedules_data
     },
     on: {
       "pagination-change-page": _vm.loadPage
     }
   })], 1)])])])])]), _vm._v(" "), _c("b-modal", {
-    ref: "addGuestMdl",
+    ref: "addScheduleMdl",
     attrs: {
       size: "lg",
       "hide-footer": "",
-      title: "Guest adding Form"
+      title: "Scheduling Form"
     }
   }, [_c("div", {
     staticClass: "d-block"
@@ -530,321 +500,27 @@ var render = function render() {
     on: {
       submit: function submit($event) {
         $event.preventDefault();
-        return _vm.addGuest.apply(null, arguments);
+        return _vm.addSchedule.apply(null, arguments);
       }
     }
   }, [_c("div", {
     staticClass: "form-row"
   }, [_c("div", {
-    staticClass: "h5 pb-2 mb-2 col-md-12 form-group text-primary border-bottom border-primary"
-  }, [_vm._v("\n                            Guest User Account Information\n                        ")]), _vm._v(" "), _c("div", {
     staticClass: "form-group col-md-6"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("Username")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_form.username,
-      expression: "guest_form.username"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.username ? "is-invalid" : "",
-    attrs: {
-      type: "text",
-      placeholder: "Enter Username"
-    },
-    domProps: {
-      value: _vm.guest_form.username
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_form, "username", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.username ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.username[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-6"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("Email")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_form.email,
-      expression: "guest_form.email"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.email ? "is-invalid" : "",
-    attrs: {
-      type: "text",
-      placeholder: "Enter Email"
-    },
-    domProps: {
-      value: _vm.guest_form.email
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_form, "email", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.email ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.email[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-6"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("Password")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_form.password,
-      expression: "guest_form.password"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.password ? "is-invalid" : "",
-    attrs: {
-      type: "password",
-      placeholder: "Enter Password"
-    },
-    domProps: {
-      value: _vm.guest_form.password
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_form, "password", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.password ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.password[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-6"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("Confirmed password")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_form.password_confirmation,
-      expression: "guest_form.password_confirmation"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.password_confirmation ? "is-invalid" : "",
-    attrs: {
-      type: "password",
-      placeholder: "Repeat Password"
-    },
-    domProps: {
-      value: _vm.guest_form.password_confirmation
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_form, "password_confirmation", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.password_confirmation ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.password_confirmation[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "h5 pb-2 mb-2 col-md-12 form-group text-primary border-bottom border-primary"
-  }, [_vm._v("\n                            Guest Personal Information\n                        ")]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-5"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("First name")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_form.fname,
-      expression: "guest_form.fname"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.fname ? "is-invalid" : "",
-    attrs: {
-      type: "text",
-      placeholder: "Enter First Name"
-    },
-    domProps: {
-      value: _vm.guest_form.fname
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_form, "fname", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.fname ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.fname[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-2"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputPassword1"
-    }
-  }, [_vm._v("Middle name")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_form.mname,
-      expression: "guest_form.mname"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.mname ? "is-invalid" : "",
-    attrs: {
-      type: "text",
-      placeholder: "Enter Middle Name"
-    },
-    domProps: {
-      value: _vm.guest_form.mname
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_form, "mname", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.mname ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.mname[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-5"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("Last Name")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_form.lname,
-      expression: "guest_form.lname"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.lname ? "is-invalid" : "",
-    attrs: {
-      type: "text",
-      placeholder: "Enter Last name"
-    },
-    domProps: {
-      value: _vm.guest_form.lname
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_form, "lname", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.lname ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.lname[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-6"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("Birthday")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_form.birthday,
-      expression: "guest_form.birthday"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.birthday ? "is-invalid" : "",
-    attrs: {
-      type: "date"
-    },
-    domProps: {
-      value: _vm.guest_form.birthday
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_form, "birthday", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.birthday ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.birthday[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-2"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("Age")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_form.age,
-      expression: "guest_form.age"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.age ? "is-invalid" : "",
-    attrs: {
-      type: "text",
-      placeholder: "Enter age"
-    },
-    domProps: {
-      value: _vm.guest_form.age
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_form, "age", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.age ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.age[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-4"
   }, [_c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "selectpos"
     }
-  }, [_vm._v("Gender")]), _vm._v(" "), _c("select", {
+  }, [_vm._v("Day")]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.guest_form.gender,
-      expression: "guest_form.gender"
+      value: _vm.schudule_form.name_day,
+      expression: "schudule_form.name_day"
     }],
     staticClass: "custom-select",
-    "class": _vm.errors.gender ? "is-invalid" : "",
-    attrs: {
-      id: "selectpos"
-    },
+    "class": _vm.errors.name_days ? "is-invalid" : "",
     on: {
       change: function change($event) {
         var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
@@ -854,67 +530,57 @@ var render = function render() {
           return val;
         });
 
-        _vm.$set(_vm.guest_form, "gender", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        _vm.$set(_vm.schudule_form, "name_day", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }
     }
   }, [_c("option", {
     attrs: {
+      selected: "",
       value: "",
       disabled: ""
     }
-  }, [_vm._v("Select gender")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "Male"
-    }
-  }, [_vm._v("Male")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "Female"
-    }
-  }, [_vm._v("Female")])]), _vm._v(" "), _vm.errors.gender ? _c("div", {
+  }, [_vm._v("Select day")]), _vm._v(" "), _vm._l(_vm.days_data, function (day, index) {
+    return _c("option", {
+      key: index,
+      domProps: {
+        value: day.name_day
+      }
+    }, [_vm._v(_vm._s(day.name_day))]);
+  })], 2), _vm._v(" "), _vm.errors.name_days ? _c("div", {
     staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.gender[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-12"
+  }, [_vm._v(_vm._s(_vm.errors.name_days[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-6"
   }, [_c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "exampleInputEmail1"
     }
-  }, [_vm._v("Occupation")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_form.occupation,
-      expression: "guest_form.occupation"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.occupation ? "is-invalid" : "",
+  }, [_vm._v("School Year")]), _vm._v(" "), _c("date-picker", {
+    "class": _vm.errors.year ? "is-invalid" : "",
     attrs: {
-      type: "text",
-      placeholder: "Enter job title"
+      config: _vm.options,
+      placeholder: "Select School year"
     },
-    domProps: {
-      value: _vm.guest_form.occupation
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_form, "occupation", $event.target.value);
-      }
+    model: {
+      value: _vm.schudule_form.year,
+      callback: function callback($$v) {
+        _vm.$set(_vm.schudule_form, "year", $$v);
+      },
+      expression: "schudule_form.year"
     }
-  }), _vm._v(" "), _vm.errors.occupation ? _c("div", {
+  }), _vm._v(" "), _vm.errors.year ? _c("div", {
     staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.occupation[0]))]) : _vm._e()]), _vm._v(" "), _c("button", {
+  }, [_vm._v(_vm._s(_vm.errors.year[0]))]) : _vm._e()], 1), _vm._v(" "), _c("button", {
     staticClass: "btn btn-primary col-12",
     attrs: {
       type: "submit"
     }
   }, [_vm._v("Submit")])])])])])]), _vm._v(" "), _c("b-modal", {
-    ref: "updateGuestMdl",
+    ref: "updateScheduleMdl",
     attrs: {
       size: "lg",
       "hide-footer": "",
-      title: "Guest Update Form"
+      title: "Scheduling update Form"
     }
   }, [_c("div", {
     staticClass: "d-block"
@@ -924,323 +590,27 @@ var render = function render() {
     on: {
       submit: function submit($event) {
         $event.preventDefault();
-        return _vm.updateGuest.apply(null, arguments);
+        return _vm.updateShechedule.apply(null, arguments);
       }
     }
   }, [_c("div", {
     staticClass: "form-row"
   }, [_c("div", {
-    staticClass: "h5 pb-2 mb-2 col-md-12 form-group text-primary border-bottom border-primary"
-  }, [_vm._v("\n                            Student User Account Information\n                        ")]), _vm._v(" "), Object.keys(_vm.guest_update_form).length == 0 ? _c("div") : _c("div", {
-    staticClass: "form-row"
-  }, [_c("div", {
     staticClass: "form-group col-md-6"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("Username")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_update_form.user.username,
-      expression: "guest_update_form.user.username"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.username ? "is-invalid" : "",
-    attrs: {
-      type: "text",
-      placeholder: "Enter Username"
-    },
-    domProps: {
-      value: _vm.guest_update_form.user.username
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_update_form.user, "username", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.username ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.username[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-6"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("Email")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_update_form.user.email,
-      expression: "guest_update_form.user.email"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.email ? "is-invalid" : "",
-    attrs: {
-      type: "text",
-      placeholder: "Enter Email"
-    },
-    domProps: {
-      value: _vm.guest_update_form.user.email
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_update_form.user, "email", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.email ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.email[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-6"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("New Password")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_update_form.user.password,
-      expression: "guest_update_form.user.password"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.password ? "is-invalid" : "",
-    attrs: {
-      type: "password",
-      placeholder: "Enter Password"
-    },
-    domProps: {
-      value: _vm.guest_update_form.user.password
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_update_form.user, "password", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.password ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.password[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-6"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("Confirmed New password")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_update_form.user.password_confirmation,
-      expression: "guest_update_form.user.password_confirmation"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.password_confirmation ? "is-invalid" : "",
-    attrs: {
-      type: "password",
-      placeholder: "Repeat Password"
-    },
-    domProps: {
-      value: _vm.guest_update_form.user.password_confirmation
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_update_form.user, "password_confirmation", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.password_confirmation ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.password_confirmation[0]))]) : _vm._e()])]), _vm._v(" "), _c("div", {
-    staticClass: "h5 pb-2 mb-2 col-md-12 form-group text-primary border-bottom border-primary"
-  }, [_vm._v("\n                            Student Personal Information\n                        ")]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-5"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("First name")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_update_form.fname,
-      expression: "guest_update_form.fname"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.fname ? "is-invalid" : "",
-    attrs: {
-      type: "text",
-      placeholder: "Enter First Name"
-    },
-    domProps: {
-      value: _vm.guest_update_form.fname
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_update_form, "fname", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.fname ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.fname[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-2"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputPassword1"
-    }
-  }, [_vm._v("Middle name")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_update_form.mname,
-      expression: "guest_update_form.mname"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.mname ? "is-invalid" : "",
-    attrs: {
-      type: "text",
-      placeholder: "Enter Middle Name"
-    },
-    domProps: {
-      value: _vm.guest_update_form.mname
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_update_form, "mname", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.mname ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.mname[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-5"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("Last Name")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_update_form.lname,
-      expression: "guest_update_form.lname"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.lname ? "is-invalid" : "",
-    attrs: {
-      type: "text",
-      placeholder: "Enter Last name"
-    },
-    domProps: {
-      value: _vm.guest_update_form.lname
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_update_form, "lname", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.lname ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.lname[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-6"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("Birthday")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_update_form.birthday,
-      expression: "guest_update_form.birthday"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.birthday ? "is-invalid" : "",
-    attrs: {
-      type: "date"
-    },
-    domProps: {
-      value: _vm.guest_update_form.birthday
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_update_form, "birthday", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.birthday ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.birthday[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-2"
-  }, [_c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("Age")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_update_form.age,
-      expression: "guest_update_form.age"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.age ? "is-invalid" : "",
-    attrs: {
-      type: "text",
-      placeholder: "Enter age"
-    },
-    domProps: {
-      value: _vm.guest_update_form.age
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_update_form, "age", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.errors.age ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.age[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-4"
   }, [_c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "selectpos"
     }
-  }, [_vm._v("Gender")]), _vm._v(" "), _c("select", {
+  }, [_vm._v("Day")]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.guest_update_form.gender,
-      expression: "guest_update_form.gender"
+      value: _vm.schudule_update_form.day,
+      expression: "schudule_update_form.day"
     }],
     staticClass: "custom-select",
-    "class": _vm.errors.gender ? "is-invalid" : "",
-    attrs: {
-      id: "selectpos"
-    },
+    "class": _vm.errors.day_id ? "is-invalid" : "",
     on: {
       change: function change($event) {
         var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
@@ -1250,57 +620,47 @@ var render = function render() {
           return val;
         });
 
-        _vm.$set(_vm.guest_update_form, "gender", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        _vm.$set(_vm.schudule_update_form, "day", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }
     }
   }, [_c("option", {
     attrs: {
+      selected: "",
       value: "",
       disabled: ""
     }
-  }, [_vm._v("Select gender")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "Male"
-    }
-  }, [_vm._v("Male")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "Female"
-    }
-  }, [_vm._v("Female")])]), _vm._v(" "), _vm.errors.gender ? _c("div", {
+  }, [_vm._v("Select day")]), _vm._v(" "), _vm._l(_vm.days_data, function (day, index) {
+    return _c("option", {
+      key: index,
+      domProps: {
+        value: day.name_day
+      }
+    }, [_vm._v(_vm._s(day.name_day))]);
+  })], 2), _vm._v(" "), _vm.errors.day_id ? _c("div", {
     staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.gender[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "form-group col-md-12"
+  }, [_vm._v(_vm._s(_vm.errors.day_id[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "form-group col-md-6"
   }, [_c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "exampleInputEmail1"
     }
-  }, [_vm._v("Course")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.guest_update_form.occupation,
-      expression: "guest_update_form.occupation"
-    }],
-    staticClass: "form-control",
-    "class": _vm.errors.occupation ? "is-invalid" : "",
+  }, [_vm._v("School Year")]), _vm._v(" "), _c("date-picker", {
+    "class": _vm.errors.school_year ? "is-invalid" : "",
     attrs: {
-      type: "text",
-      placeholder: "Enter job title"
+      config: _vm.options,
+      placeholder: "Select School year"
     },
-    domProps: {
-      value: _vm.guest_update_form.occupation
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.guest_update_form, "occupation", $event.target.value);
-      }
+    model: {
+      value: _vm.schudule_update_form.school_year,
+      callback: function callback($$v) {
+        _vm.$set(_vm.schudule_update_form, "school_year", $$v);
+      },
+      expression: "schudule_update_form.school_year"
     }
-  }), _vm._v(" "), _vm.errors.occupation ? _c("div", {
+  }), _vm._v(" "), _vm.errors.school_year ? _c("div", {
     staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.occupation[0]))]) : _vm._e()]), _vm._v(" "), _c("button", {
+  }, [_vm._v(_vm._s(_vm.errors.school_year[0]))]) : _vm._e()], 1), _vm._v(" "), _c("button", {
     staticClass: "btn btn-primary col-12",
     attrs: {
       type: "submit"
@@ -1324,7 +684,7 @@ var staticRenderFns = [function () {
     }
   }, [_vm._v("Dashboard")])]), _vm._v(" "), _c("li", {
     staticClass: "breadcrumb-item active"
-  }, [_vm._v("Guests")])])]);
+  }, [_vm._v("Schedules")])])]);
 }, function () {
   var _vm = this,
       _c = _vm._self._c;
@@ -1347,24 +707,36 @@ var staticRenderFns = [function () {
     staticStyle: {
       "text-align": "center"
     }
-  }, [_c("th", [_vm._v("Guest Number")]), _vm._v(" "), _c("th", [_vm._v("Name")]), _vm._v(" "), _c("th", [_vm._v("Ocupation")]), _vm._v(" "), _c("th", [_vm._v("Action")])])]);
+  }, [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Day")]), _vm._v(" "), _c("th", [_vm._v("School Year")]), _vm._v(" "), _c("th", [_vm._v("Appointments")]), _vm._v(" "), _c("th", [_vm._v("Action")])])]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("td", [_c("button", {
+    staticClass: "btn btn-primary",
+    attrs: {
+      type: "button"
+    }
+  }, [_vm._v("\n                                                Appointments "), _c("span", {
+    staticClass: "badge text-bg-secondary"
+  }, [_vm._v("4")])])]);
 }];
 render._withStripped = true;
 
 
 /***/ }),
 
-/***/ "./resources/js/components/pages/admin/Guest.vue":
-/*!*******************************************************!*\
-  !*** ./resources/js/components/pages/admin/Guest.vue ***!
-  \*******************************************************/
+/***/ "./resources/js/components/pages/admin/Schedule.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/pages/admin/Schedule.vue ***!
+  \**********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Guest_vue_vue_type_template_id_787c181c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Guest.vue?vue&type=template&id=787c181c& */ "./resources/js/components/pages/admin/Guest.vue?vue&type=template&id=787c181c&");
-/* harmony import */ var _Guest_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Guest.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/admin/Guest.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Schedule_vue_vue_type_template_id_489f1aed___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Schedule.vue?vue&type=template&id=489f1aed& */ "./resources/js/components/pages/admin/Schedule.vue?vue&type=template&id=489f1aed&");
+/* harmony import */ var _Schedule_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Schedule.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/admin/Schedule.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1374,9 +746,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Guest_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Guest_vue_vue_type_template_id_787c181c___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Guest_vue_vue_type_template_id_787c181c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Schedule_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Schedule_vue_vue_type_template_id_489f1aed___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Schedule_vue_vue_type_template_id_489f1aed___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1386,73 +758,73 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/pages/admin/Guest.vue"
+component.options.__file = "resources/js/components/pages/admin/Schedule.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/pages/admin/Guest.vue?vue&type=script&lang=js&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/pages/admin/Guest.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************/
+/***/ "./resources/js/components/pages/admin/Schedule.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/pages/admin/Schedule.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Guest_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Guest.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/admin/Guest.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Guest_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Schedule_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Schedule.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/admin/Schedule.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Schedule_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/pages/admin/Guest.vue?vue&type=template&id=787c181c&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/components/pages/admin/Guest.vue?vue&type=template&id=787c181c& ***!
-  \**************************************************************************************/
+/***/ "./resources/js/components/pages/admin/Schedule.vue?vue&type=template&id=489f1aed&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/pages/admin/Schedule.vue?vue&type=template&id=489f1aed& ***!
+  \*****************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Guest_vue_vue_type_template_id_787c181c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Guest.vue?vue&type=template&id=787c181c& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/admin/Guest.vue?vue&type=template&id=787c181c&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Guest_vue_vue_type_template_id_787c181c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Schedule_vue_vue_type_template_id_489f1aed___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Schedule.vue?vue&type=template&id=489f1aed& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/admin/Schedule.vue?vue&type=template&id=489f1aed&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Schedule_vue_vue_type_template_id_489f1aed___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Guest_vue_vue_type_template_id_787c181c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Schedule_vue_vue_type_template_id_489f1aed___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/services/guest_service.js":
-/*!************************************************!*\
-  !*** ./resources/js/services/guest_service.js ***!
-  \************************************************/
-/*! exports provided: get_all_guests, create_guest, update_guest, delete_guest, guest_page */
+/***/ "./resources/js/services/schedule_service.js":
+/*!***************************************************!*\
+  !*** ./resources/js/services/schedule_service.js ***!
+  \***************************************************/
+/*! exports provided: get_all_schedule, get_all_days, create_schedule, update_schedule, delete_schedule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_all_guests", function() { return get_all_guests; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create_guest", function() { return create_guest; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update_guest", function() { return update_guest; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "delete_guest", function() { return delete_guest; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "guest_page", function() { return guest_page; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_all_schedule", function() { return get_all_schedule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_all_days", function() { return get_all_days; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create_schedule", function() { return create_schedule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update_schedule", function() { return update_schedule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "delete_schedule", function() { return delete_schedule; });
 /* harmony import */ var _http_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./http_service */ "./resources/js/services/http_service.js");
 
-function get_all_guests() {
-  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["http"])().get('/guest');
+function get_all_schedule() {
+  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["http"])().get('/schedule');
 }
-function create_guest(data) {
-  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["httpFile"])().post('/guest', data);
+function get_all_days() {
+  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["http"])().get('/get-all-days');
 }
-function update_guest(id, data) {
-  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["httpFile"])().post("guest/".concat(id), data);
+function create_schedule(data) {
+  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["httpFile"])().post('/schedule', data);
 }
-function delete_guest(id) {
-  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["http"])()["delete"]("guest/".concat(id));
+function update_schedule(id, data) {
+  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["httpFile"])().post("schedule/".concat(id), data);
 }
-function guest_page(page) {
-  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["httpFile"])().get('/guest?page=' + page);
+function delete_schedule(id) {
+  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["http"])()["delete"]("schedule/".concat(id));
 }
 
 /***/ })
